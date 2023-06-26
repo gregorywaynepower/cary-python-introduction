@@ -81,8 +81,9 @@ conda install --revision N
 
 #### Trying to make conda Faster?
 
-- [Anconda: Conda is Fast Now. Like, Really Fast](https://www.anaconda.com/blog/conda-is-fast-now)
+- [Anaconda: Conda is Fast Now. Like, Really Fast](https://www.anaconda.com/blog/conda-is-fast-now)
 - [conda-libmamba-solver: Getting Started](https://conda.github.io/conda-libmamba-solver/getting-started/)
+- [Replace it with `mamba`; even for existing `conda` installations](https://mamba.readthedocs.io/en/latest/installation.html)
 
 ## Python 3
 
