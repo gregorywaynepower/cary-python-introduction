@@ -4,6 +4,8 @@
 
 - For an Introduction to Data Analysis and a Refresher on Statistics
   - [introduction_to_data_analysis.ipynb](/notebooks/introduction_to_data_analysis.ipynb)
+- For an Introduction to Hypothesis Testing
+  - [hypothesis_testing.ipynb](/notebooks/hypothesis_testing.ipynb)
 - For an Introduction to Python
   - [python_101.ipynb](/notebooks/python_101.ipynb)
 - Handling Common Errors in Python
