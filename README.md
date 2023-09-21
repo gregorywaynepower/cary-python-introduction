@@ -31,6 +31,21 @@
 - Introduction to `pandas.plotting()` module
   - [pandas_plotting_module.ipynb](/notebooks/pandas_plotting_module.ipynb)
 
+## Installing This Repository's Depencies using `conda-lock.yml` or `environment.yml` Files
+
+You can install project dependencies either using out-of-the-box conda CLI commands, or installing conda-lock to ensure dependencies are solved no matter the platform you are on.
+
+```bash
+conda install -c conda-forge conda-lock
+conda-lock install --name name-of-your-environment conda-lock.yml
+conda activate name-of-your-environment
+```
+
+```bash
+conda env create -n name-of-your-environment --file environment.yml
+conda activate name-of-your-environment
+```
+
 ## Missing an Imported Module?
 
 1. Install your module using `conda install name-of-module` [in your terminal or Anaconda Prompt](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#id2)
