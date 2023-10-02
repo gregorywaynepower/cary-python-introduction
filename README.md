@@ -56,7 +56,7 @@ conda activate name-of-your-environment
    2. Click Environments tab
    3. Select the Environment you want to install a module into
 
-Please **don't use** `pip install name-of-module` when installing packages without activating your conda environment via `conda activate name-of-environment` first.
+Please **don't use** `python -m pip install name-of-module` when installing packages without activating your conda environment via `conda activate name-of-environment` first.
 
 [Anaconda's Explanation of conda & pip if you want a more in-depth explanation.](https://www.anaconda.com/blog/understanding-conda-and-pip "https://www.anaconda.com/blog/understanding-conda-and-pip")
 
