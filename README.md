@@ -20,8 +20,6 @@
   - [wide_vs_long.ipynb](/notebooks/wide_vs_long.ipynb)
 - Cleaning data in `pandas`
   - [cleaning_data.ipynb](/notebooks/cleaning_data.ipynb)
-- Reshaping Data in `pandas`
-  - [reshaping_data.ipynb](/notebooks/reshaping_data.ipynb)
 - Handling Data Issues in `pandas`
   - [handling_data_issues.ipynb](/notebooks/handling_data_issues.ipynb)
 - Introduction to [`plotly.express`](https://plotly.com/python/plotly-express/)
