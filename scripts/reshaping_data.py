@@ -43,14 +43,17 @@ long_df.set_index('date').head(6).T
 
 # %% [markdown]
 # ## Pivoting
+#
 # Going from long to wide format.
 # 
 # ### `pivot()`
-# We can restructure our data by picking a column to go in the index (`index`), a column
-# whose unique values will become column names (`columns`), and the values to place
-# in those columns (`values`). The `pivot()` method can be used when we don't 
-# need to perform any aggregation in addition to our restructuring (when our 
-# index is unique); if this is not the case, we need the `pivot_table()` method. 
+#
+# We can restructure our data by picking a column to go in the index (`index`),
+# a column whose unique values will become column names (`columns`), and the
+# values to place in those columns (`values`). The `pivot()` method can be used
+# when we don't need to perform any aggregation in addition to our
+# restructuring (when our index is unique); if this is not the case, we need
+# the `pivot_table()` method. 
 
 # %%
 pivoted_df = long_df.pivot(
@@ -66,8 +69,8 @@ pivoted_df.head()
 pivoted_df.describe()
 
 # %% [markdown]
-# We can also provide multiple values to pivot on, which will result in a hierarchical
-# index:
+# We can also provide multiple values to pivot on, which will result in a
+# hierarchical index:
 
 # %%
 pivoted_df = long_df.pivot(
@@ -76,8 +79,8 @@ pivoted_df = long_df.pivot(
 pivoted_df.head()
 
 # %% [markdown]
-# With the hierarchical index, if we want to select `TMIN` in Fahrenheit, we will first
-# need to select `temp_F` and then `TMIN`:
+# With the hierarchical index, if we want to select `TMIN` in Fahrenheit, we
+# will first need to select `temp_F` and then `TMIN`:
 
 # %%
 pivoted_df['temp_F']['TMIN'].head()
@@ -85,8 +88,10 @@ pivoted_df['temp_F']['TMIN'].head()
 # %% [markdown]
 # ### `unstack()`
 # 
-# We have been working with a single index so far; however, we can create an index from
-# any number of columns with `set_index()`. This gives us an index of type `MultiIndex`, where the outermost level corresponds to the first element in the list provided to `set_index()`:
+# We have been working with a single index so far; however, we can create an
+# index from any number of columns with `set_index()`. This gives us an index
+# of type `MultiIndex`, where the outermost level corresponds to the first
+# element in the list provided to `set_index()`:
 
 # %%
 multi_index_df = long_df.set_index(['date', 'datatype'])
@@ -99,14 +104,19 @@ multi_index_df.head().index
 multi_index_df.head()
 
 # %% [markdown]
-# With an index of type `MultiIndex`, we can no longer use `pivot()`. We must now use `unstack()`, which by default moves the innermost index onto the columns:
+# With an index of type `MultiIndex`, we can no longer use `pivot()`. We must
+# now use `unstack()`, which by default moves the innermost index onto the
+# columns:
 
 # %%
 unstacked_df = multi_index_df.unstack()
 unstacked_df.head()
 
 # %% [markdown]
-# The `unstack()` method also provides the `fill_value` parameter, which let's us fill-in any `NaN` values that might arise from this restructuring of the data. Consider the case that we have data for the average temperature on October 1, 2018, but no other date:
+# The `unstack()` method also provides the `fill_value` parameter, which let's
+# us fill-in any `NaN` values that might arise from this restructuring of the
+# data. Consider the case that we have data for the average temperature on
+# October 1, 2018, but no other date:
 
 # %%
 extra_data = long_df.append([{
@@ -119,13 +129,18 @@ extra_data = long_df.append([{
 extra_data['2018-10-01':'2018-10-02']
 
 # %% [markdown]
-# If we use `unstack()` in this case, we will have `NaN` for the `TAVG` columns every day but October 1, 2018:
+# If we use `unstack()` in this case, we will have `NaN` for the `TAVG` columns
+# every day but October 1, 2018:
 
 # %%
 extra_data.unstack().head()
 
 # %% [markdown]
-# To address this, we can pass in an appropriate `fill_value`. However, we are restricted to passing in a value for this, not a strategy (like we saw with `fillna()`), so while `-40` is definitely not be the best value, we can use it to illustrate how this works, since this is the temperature at which Fahrenheit and Celsius are equal:
+# To address this, we can pass in an appropriate `fill_value`. However, we are
+# restricted to passing in a value for this, not a strategy (like we saw with
+# `fillna()`), so while `-40` is definitely not be the best value, we can use
+# it to illustrate how this works, since this is the temperature at which
+# Fahrenheit and Celsius are equal:
 
 # %%
 extra_data.unstack(fill_value=-40).head()
@@ -142,13 +157,13 @@ wide_df.head()
 
 # %% [markdown]
 # ### `melt()`
-# In order to go from wide format to long format, we use the `melt()` method. We have to specify:
+# In order to go from wide format to long format, we use the `melt()` method. We have to specify:  # noqa: E501
 # - `id_vars`: which column(s) uniquely identify a row in the wide format (`date`, here)
-# - `value_vars`: the column(s) that contain(s) the values (`TMAX`, `TMIN`, and `TOBS`, here)
+# - `value_vars`: the column(s) that contain(s) the values (`TMAX`, `TMIN`, and `TOBS`, here)  # noqa: E501
 # 
 # Optionally, we can also provide:
 # - `value_name`: what to call the column that will contain all the values once melted
-# - `var_name`: what to call the column that will contain the names of the variables being measured
+# - `var_name`: what to call the column that will contain the names of the variables being measured  # noqa: E501
 
 # %%
 melted_df = wide_df.melt(
@@ -161,21 +176,28 @@ melted_df.head()
 
 # %% [markdown]
 # ### `stack()`
-# Another option is `stack()`, which will pivot the columns of the dataframe into the innermost level of the index (resulting in an index of type `MultiIndex`). To illustrate this, let's set our index to be the `date` column:
+# Another option is `stack()`, which will pivot the columns of the dataframe
+# into the innermost level of the index (resulting in an index of type
+# `MultiIndex`). To illustrate this, let's set our index to be the `date`
+# column:
 
 # %%
 wide_df.set_index('date', inplace=True)
 wide_df.head()
 
 # %% [markdown]
-# By running `stack()` now, we will create a second level in our index which will contain the column names of our dataframe (`TMAX`, `TMIN`, `TOBS`). This will leave us with a `Series` object containing the values:
+# By running `stack()` now, we will create a second level in our index which
+# will contain the column names of our dataframe (`TMAX`, `TMIN`, `TOBS`). This
+# will leave us with a `Series` object containing the values:
 
 # %%
 stacked_series = wide_df.stack()
 stacked_series.head()
 
 # %% [markdown]
-# We can use the `to_frame()` method on our `Series` object to turn it into a `DataFrame` object. Since the series doesn't have a name at the moment, we will pass in the name as an argument:
+# We can use the `to_frame()` method on our `Series` object to turn it into a
+# `DataFrame` object. Since the series doesn't have a name at the moment, we
+# will pass in the name as an argument:
 
 # %%
 stacked_df = stacked_series.to_frame('values')
