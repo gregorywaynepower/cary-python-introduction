@@ -1,36 +1,35 @@
 # %% [markdown]
 # # Reshaping Data
-# 
+#
 # ## About the data
-# In this notebook, we will using daily temperature data from the 
+# In this notebook, we will using daily temperature data from the
 # [National Centers for Environmental Information (NCEI) API](https://www.ncdc.noaa.gov/cdo-web/webservices/v2).
 # We will use the Global Historical Climatology Network - Daily (GHCND) dataset;
 # see the documentation [here](https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf).
-# 
+#
 # This data was collected for New York City for October 2018, using the Boonton
 # 1 station (GHCND:USC00280907). It contains:
 # - the daily minimum temperature (`TMIN`)
 # - the daily maximum temperature (`TMAX`)
 # - the daily temperature at time of observation (`TOBS`)
-# 
+#
 # *Note: The NCEI is part of the National Oceanic and Atmospheric Administration (NOAA)
 # and, as you can see from the URL for the API, this resource was created when
 # the NCEI was called the NCDC. Should the URL for this resource change in the
 # future, you can search for "NCEI weather API" to find the updated one.*
-# 
+#
 # ## Setup
 # We need to import `pandas` and read in the long format data to get started:
 
 # %%
 import pandas as pd
 
-long_df = pd.read_csv(
-    '../data/long_data.csv', usecols=['date', 'datatype', 'value']
-).rename(
-    columns={'value': 'temp_C'}
-).assign(
-    date=lambda x: pd.to_datetime(x.date),
-    temp_F=lambda x: (x.temp_C * 9/5) + 32
+long_df = (
+    pd.read_csv("../data/long_data.csv", usecols=["date", "datatype", "value"])
+    .rename(columns={"value": "temp_C"})
+    .assign(
+        date=lambda x: pd.to_datetime(x.date), temp_F=lambda x: (x.temp_C * 9 / 5) + 32
+    )
 )
 long_df.head()
 
@@ -39,13 +38,13 @@ long_df.head()
 # Transposing swaps the rows and the columns. We use the `T` attribute to do so:
 
 # %%
-long_df.set_index('date').head(6).T
+long_df.set_index("date").head(6).T
 
 # %% [markdown]
 # ## Pivoting
 #
 # Going from long to wide format.
-# 
+#
 # ### `pivot()`
 #
 # We can restructure our data by picking a column to go in the index (`index`),
@@ -53,12 +52,10 @@ long_df.set_index('date').head(6).T
 # values to place in those columns (`values`). The `pivot()` method can be used
 # when we don't need to perform any aggregation in addition to our
 # restructuring (when our index is unique); if this is not the case, we need
-# the `pivot_table()` method. 
+# the `pivot_table()` method.
 
 # %%
-pivoted_df = long_df.pivot(
-    index='date', columns='datatype', values='temp_C'
-)
+pivoted_df = long_df.pivot(index="date", columns="datatype", values="temp_C")
 pivoted_df.head()
 
 # %% [markdown]
@@ -74,7 +71,7 @@ pivoted_df.describe()
 
 # %%
 pivoted_df = long_df.pivot(
-    index='date', columns='datatype', values=['temp_C', 'temp_F']
+    index="date", columns="datatype", values=["temp_C", "temp_F"]
 )
 pivoted_df.head()
 
@@ -83,18 +80,18 @@ pivoted_df.head()
 # will first need to select `temp_F` and then `TMIN`:
 
 # %%
-pivoted_df['temp_F']['TMIN'].head()
+pivoted_df["temp_F"]["TMIN"].head()
 
 # %% [markdown]
 # ### `unstack()`
-# 
+#
 # We have been working with a single index so far; however, we can create an
 # index from any number of columns with `set_index()`. This gives us an index
 # of type `MultiIndex`, where the outermost level corresponds to the first
 # element in the list provided to `set_index()`:
 
 # %%
-multi_index_df = long_df.set_index(['date', 'datatype'])
+multi_index_df = long_df.set_index(["date", "datatype"])
 multi_index_df.head().index
 
 # %% [markdown]
@@ -119,14 +116,15 @@ unstacked_df.head()
 # October 1, 2018, but no other date:
 
 # %%
-extra_data = long_df.append([{
-    'datatype': 'TAVG', 
-    'date': '2018-10-01', 
-    'temp_C': 10, 
-    'temp_F': 50
-}]).set_index(['date', 'datatype']).sort_index()
+extra_data = (
+    long_df.append(
+        [{"datatype": "TAVG", "date": "2018-10-01", "temp_C": 10, "temp_F": 50}]
+    )
+    .set_index(["date", "datatype"])
+    .sort_index()
+)
 
-extra_data['2018-10-01':'2018-10-02']
+extra_data["2018-10-01":"2018-10-02"]
 
 # %% [markdown]
 # If we use `unstack()` in this case, we will have `NaN` for the `TAVG` columns
@@ -148,11 +146,11 @@ extra_data.unstack(fill_value=-40).head()
 # %% [markdown]
 # ## Melting
 # Going from wide to long format.
-# 
+#
 # ### Setup
 
 # %%
-wide_df = pd.read_csv('../data/wide_data.csv')
+wide_df = pd.read_csv("../data/wide_data.csv")
 wide_df.head()
 
 # %% [markdown]
@@ -160,17 +158,17 @@ wide_df.head()
 # In order to go from wide format to long format, we use the `melt()` method. We have to specify:  # noqa: E501
 # - `id_vars`: which column(s) uniquely identify a row in the wide format (`date`, here)
 # - `value_vars`: the column(s) that contain(s) the values (`TMAX`, `TMIN`, and `TOBS`, here)  # noqa: E501
-# 
+#
 # Optionally, we can also provide:
 # - `value_name`: what to call the column that will contain all the values once melted
 # - `var_name`: what to call the column that will contain the names of the variables being measured  # noqa: E501
 
 # %%
 melted_df = wide_df.melt(
-    id_vars='date',
-    value_vars=['TMAX', 'TMIN', 'TOBS'],
-    value_name='temp_C',
-    var_name='measurement'
+    id_vars="date",
+    value_vars=["TMAX", "TMIN", "TOBS"],
+    value_name="temp_C",
+    var_name="measurement",
 )
 melted_df.head()
 
@@ -182,7 +180,7 @@ melted_df.head()
 # column:
 
 # %%
-wide_df.set_index('date', inplace=True)
+wide_df.set_index("date", inplace=True)
 wide_df.head()
 
 # %% [markdown]
@@ -200,7 +198,7 @@ stacked_series.head()
 # will pass in the name as an argument:
 
 # %%
-stacked_df = stacked_series.to_frame('values')
+stacked_df = stacked_series.to_frame("values")
 stacked_df.head()
 
 # %% [markdown]
@@ -219,7 +217,5 @@ stacked_df.index.names
 # We can use `set_names()` to address this though:
 
 # %%
-stacked_df.index.set_names(['date', 'datatype'], inplace=True)
+stacked_df.index.set_names(["date", "datatype"], inplace=True)
 stacked_df.index.names
-
-

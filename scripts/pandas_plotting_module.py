@@ -1,10 +1,10 @@
 # %% [markdown]
 # # The `pandas.plotting` module
 # Pandas provides some extra plotting functions for some new plot types.
-# 
+#
 # ## About the Data
 # In this notebook, we will be working with Facebook's stock price throughout 2018 (obtained using the [`stock_analysis` package](https://github.com/stefmolin/stock-analysis)).
-# 
+#
 # ## Setup
 
 # %%
@@ -12,9 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-fb = pd.read_csv(
-    '../data/fb_stock_prices_2018.csv', index_col='date', parse_dates=True
-)
+fb = pd.read_csv("../data/fb_stock_prices_2018.csv", index_col="date", parse_dates=True)
 
 # %% [markdown]
 # ## Scatter matrix
@@ -22,13 +20,14 @@ fb = pd.read_csv(
 
 # %%
 from pandas.plotting import scatter_matrix
+
 scatter_matrix(fb, figsize=(10, 10))
 
 # %% [markdown]
 # Changing the diagonal from histograms to KDE:
 
 # %%
-scatter_matrix(fb, figsize=(10, 10), diagonal='kde')
+scatter_matrix(fb, figsize=(10, 10), diagonal="kde")
 
 # %% [markdown]
 # ## Lag plot
@@ -36,7 +35,8 @@ scatter_matrix(fb, figsize=(10, 10), diagonal='kde')
 
 # %%
 from pandas.plotting import lag_plot
-np.random.seed(0) # make this repeatable
+
+np.random.seed(0)  # make this repeatable
 lag_plot(pd.Series(np.random.random(size=200)))
 
 # %% [markdown]
@@ -57,7 +57,8 @@ lag_plot(fb.close, lag=5)
 
 # %%
 from pandas.plotting import autocorrelation_plot
-np.random.seed(0) # make this repeatable
+
+np.random.seed(0)  # make this repeatable
 autocorrelation_plot(pd.Series(np.random.random(size=200)))
 
 # %% [markdown]
@@ -72,6 +73,5 @@ autocorrelation_plot(fb.close)
 
 # %%
 from pandas.plotting import bootstrap_plot
+
 fig = bootstrap_plot(fb.volume, fig=plt.figure(figsize=(10, 6)))
-
-
