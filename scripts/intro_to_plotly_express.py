@@ -49,17 +49,25 @@ px.scatter(df, x="gdpPercap", y='lifeExp', hover_name="country", height=500)
 px.scatter(df, x="gdpPercap", y='lifeExp', hover_name="country", color="continent",size="pop", height=500)
 
 # %% [markdown]
-# We can see that the curve follows a logarithmic path, so make `log_x=True` to straighten out the line to view the relationships in an easier manner. In the graph below we can view the [monotic and nonmonotonic relationships](https://www.statology.org/monotonic-relationship/) in the dataset.
+# We can see that the curve follows a logarithmic path, so make `log_x=True` to
+# straighten out the line to view the relationships in an easier manner. In the
+# graph below we can view the [monotic and nonmonotonic
+# relationships](https://www.statology.org/monotonic-relationship/) in the
+# dataset.
 # 
 
 # %%
-px.scatter(df, x="gdpPercap", y='lifeExp', hover_name="country", color="continent",size="pop", size_max=60, log_x=True, height=500)
+px.scatter(df, x="gdpPercap", y='lifeExp', hover_name="country",
+           color="continent",size="pop", size_max=60, log_x=True, height=500)
 
 # %%
-fig = px.scatter(df, x="gdpPercap", y='lifeExp', hover_name="country", color="continent",size="pop", size_max=60, log_x=True, height=500)
+fig = px.scatter(df, x="gdpPercap", y='lifeExp', hover_name="country",
+                 color="continent",size="pop", size_max=60, log_x=True,
+                 height=500)
 
 # %% [markdown]
-# This will allow you to inspect the values for each of these cells, unfortunately this is a great deal easier to see in JupyterLab.
+# This will allow you to inspect the values for each of these cells,
+# unfortunately this is a great deal easier to see in JupyterLab.
 # 
 
 # %%
