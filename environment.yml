@@ -20,6 +20,7 @@ dependencies:
   - ipympl
   - nodejs
   - statsmodels
+  - setuptools
   - ruff
 platforms:
   - win-64
