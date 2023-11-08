@@ -1,5 +1,7 @@
 # Cary Introduction to Python & Anaconda
 
+ [![Nbviewer](https://img.shields.io/badge/render-nbviewer-lightgrey?logo=jupyter)](https://nbviewer.org/github/gregorywaynepower/cary-python-introduction/tree/main/) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gregorywaynepower/cary-python-introduction/blob/main)
+
 ## Navigating the File Tree in this Repository
 
 - For an Introduction to Data Analysis and a Refresher on Statistics
@@ -18,8 +20,6 @@
   - [wide_vs_long.ipynb](/notebooks/wide_vs_long.ipynb)
 - Cleaning data in `pandas`
   - [cleaning_data.ipynb](/notebooks/cleaning_data.ipynb)
-- Reshaping Data in `pandas`
-  - [reshaping_data.ipynb](/notebooks/reshaping_data.ipynb)
 - Handling Data Issues in `pandas`
   - [handling_data_issues.ipynb](/notebooks/handling_data_issues.ipynb)
 - Introduction to [`plotly.express`](https://plotly.com/python/plotly-express/)
@@ -31,6 +31,21 @@
 - Introduction to `pandas.plotting()` module
   - [pandas_plotting_module.ipynb](/notebooks/pandas_plotting_module.ipynb)
 
+## Installing This Repository's Depencies using `conda-lock.yml` or `environment.yml` Files
+
+You can install project dependencies either using out-of-the-box conda CLI commands, or installing conda-lock to ensure dependencies are solved no matter the platform you are on.
+
+```bash
+conda install -c conda-forge conda-lock
+conda-lock install --name name-of-your-environment conda-lock.yml
+conda activate name-of-your-environment
+```
+
+```bash
+conda env create -n name-of-your-environment --file environment.yml
+conda activate name-of-your-environment
+```
+
 ## Missing an Imported Module?
 
 1. Install your module using `conda install name-of-module` [in your terminal or Anaconda Prompt](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#id2)
@@ -39,7 +54,7 @@
    2. Click Environments tab
    3. Select the Environment you want to install a module into
 
-Please **don't use** `pip install name-of-module` when installing packages without activating your conda environment via `conda activate name-of-environment` first.
+Please **don't use** `python -m pip install name-of-module` when installing packages without activating your conda environment via `conda activate name-of-environment` first.
 
 [Anaconda's Explanation of conda & pip if you want a more in-depth explanation.](https://www.anaconda.com/blog/understanding-conda-and-pip "https://www.anaconda.com/blog/understanding-conda-and-pip")
 
