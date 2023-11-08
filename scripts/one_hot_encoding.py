@@ -3,7 +3,7 @@ import pandas as pd
 print(pd.__version__)
 
 # %%
-disengagements = pd.read_excel("../data/cassi-autonomous-shuttle/autonomous_shuttle_disengagement.xlsx",usecols=["Incident Datetime", "Location","Weather","Vehicle Speed", "Initiated by","Cause"], parse_dates=True)
+disengagements = pd.read_excel("../data/cassi-autonomous-shuttle/autonomous_shuttle_disengagement.xlsx",usecols=["Incident Datetime", "Location","Weather","Vehicle Speed in Miles per Hour", "Initiated by","Cause"], parse_dates=True)
 disengagements
 
 # %%
