@@ -80,7 +80,7 @@ df.dtypes
 # column:
 
 # %%
-df.date.describe(datetime_is_numeric=True)
+df.date.describe()
 
 # %% [markdown] We can use `tz_localize()` on a `DatetimeIndex` object to
 # convert to a desired timezone:
