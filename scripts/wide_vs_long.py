@@ -32,7 +32,7 @@ wide_df.head(6)
 # %% [markdown] Describing all the columns is easy:
 
 # %%
-wide_df.describe(include="all", datetime_is_numeric=True)
+wide_df.describe(include="all")
 
 # %% [markdown] It's easy to graph with `pandas`:
 
@@ -57,7 +57,7 @@ long_df.head(6)
 # `describe()` is not that helpful:
 
 # %%
-long_df.describe(include="all", datetime_is_numeric=True)
+long_df.describe(include="all")
 
 # %% [markdown] Plotting long format data in `pandas` can be
 # rather tricky. Instead we use `seaborn`:
