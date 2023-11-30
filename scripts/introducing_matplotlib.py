@@ -1,14 +1,14 @@
 # %% [markdown]
 # # Getting Started with Matplotlib
-# 
+#
 # Pandas uses `matplotlib` to create visualizations. Therefore, before we learn how to plot with `pandas`, it's important to understand how `matplotlib` works at a high-level, which is the focus of this notebook.
-# 
-# 
+#
+#
 # ## About the Data
 # In this notebook, we will be working with 2 datasets:
 # - Facebook's stock price throughout 2018 (obtained using the [`stock_analysis` package](https://github.com/stefmolin/stock-analysis))
 # - Earthquake data from September 18, 2018 - October 13, 2018 (obtained from the US Geological Survey (USGS) using the [USGS API](https://earthquake.usgs.gov/fdsnws/event/1/))
-# 
+#
 # ## Setup
 # We need to import `matplotlib.pyplot` for plotting.
 
@@ -20,9 +20,7 @@ import pandas as pd
 # ## Plotting lines
 
 # %%
-fb = pd.read_csv(
-    '../data/fb_stock_prices_2018.csv', index_col='date', parse_dates=True
-)
+fb = pd.read_csv("../data/fb_stock_prices_2018.csv", index_col="date", parse_dates=True)
 
 plt.plot(fb.index, fb.open)
 plt.show()
@@ -34,9 +32,7 @@ plt.show()
 import matplotlib.pyplot as plt
 import pandas as pd
 
-fb = pd.read_csv(
-    '../data/fb_stock_prices_2018.csv', index_col='date', parse_dates=True
-)
+fb = pd.read_csv("../data/fb_stock_prices_2018.csv", index_col="date", parse_dates=True)
 plt.plot(fb.index, fb.open)
 
 # %% [markdown]
@@ -46,11 +42,11 @@ plt.plot(fb.index, fb.open)
 # We can pass in a string specifying the style of the plot. This is of the form `[marker][linestyle][color]`. For example, we can make a black dashed line with `'--k'` or a red scatter plot with `'or'`:
 
 # %%
-plt.plot('high', 'low', 'or', data=fb.head(20))
+plt.plot("high", "low", "or", data=fb.head(20))
 
 # %% [markdown]
 # Here are some examples of how you make a format string:
-# 
+#
 # | Marker | Linestyle | Color | Format String | Result |
 # | :---: | :---: | :---: | :---: | --- |
 # | | `-` | `b` | `-b` | blue solid line|
@@ -59,12 +55,12 @@ plt.plot('high', 'low', 'or', data=fb.head(20))
 # | `o` | `-` | `g` | `o-g` | green solid line with circles|
 # | | `:` | `m` | `:m` | magenta dotted line|
 # |`x` | `-.` | `c` | `x-.c` | cyan dot-dashed line with x's|
-#  
+#
 # Note that we can also use format strings of the form `[color][marker][linestyle]`, but the parsing by `matplotlib` (in rare cases) might not be what we were aiming for. Consult the *Notes* section in the [documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) for the complete list of options.
 # ## Histograms
 
 # %%
-quakes = pd.read_csv('../data/earthquakes.csv')
+quakes = pd.read_csv("../data/earthquakes.csv")
 plt.hist(quakes.query('magType == "ml"').mag)
 
 # %% [markdown]
@@ -76,7 +72,7 @@ x = quakes.query('magType == "ml"').mag
 fig, axes = plt.subplots(1, 2, figsize=(10, 3))
 for ax, bins in zip(axes, [7, 35]):
     ax.hist(x, bins=bins)
-    ax.set_title(f'bins param: {bins}')
+    ax.set_title(f"bins param: {bins}")
 
 # %% [markdown]
 # ## Plot components
@@ -89,7 +85,7 @@ fig = plt.figure()
 # %% [markdown]
 # ### `Axes`
 # Individual plots contained within the `Figure`.
-# 
+#
 # ## Creating subplots
 # Simply specify the number of rows and columns to create:
 
@@ -114,24 +110,24 @@ gs = fig.add_gridspec(3, 3)
 top_left = fig.add_subplot(gs[0, 0])
 mid_left = fig.add_subplot(gs[1, 0])
 top_right = fig.add_subplot(gs[:2, 1:])
-bottom = fig.add_subplot(gs[2,:])
+bottom = fig.add_subplot(gs[2, :])
 
 # %% [markdown]
 # ## Saving plots
 # Use `plt.savefig()` to save the last created plot. To save a specific `Figure` object, use its `savefig()` method. Which supports 'png', 'pdf', 'svg', and 'eps' filetypes.
 
 # %%
-fig.savefig('empty.png')
-fig.savefig('empty.pdf')
-fig.savefig('empty.svg')
-fig.savefig('empty.eps')
+fig.savefig("empty.png")
+fig.savefig("empty.pdf")
+fig.savefig("empty.svg")
+fig.savefig("empty.eps")
 
 # %% [markdown]
 # ## Cleaning up
 # It's important to close resources when we are done with them. We use `plt.close()` to do so. If we pass in nothing, it will close the last plot, but we can pass in the specific `Figure` object to close or say `'all'` to close all `Figure` objects that are open. Let's close all the `Figure` objects that are open with `plt.close()`:
 
 # %%
-plt.close('all')
+plt.close("all")
 
 # %% [markdown]
 # ## Additional plotting options
@@ -156,7 +152,7 @@ import random
 import matplotlib as mpl
 
 rcparams_list = list(mpl.rcParams.keys())
-random.seed(20) # make this repeatable
+random.seed(20)  # make this repeatable
 random.shuffle(rcparams_list)
 sorted(rcparams_list[:20])
 
@@ -164,27 +160,25 @@ sorted(rcparams_list[:20])
 # We can check the current default `figsize` using `rcParams`:
 
 # %%
-mpl.rcParams['figure.figsize']
+mpl.rcParams["figure.figsize"]
 
 # %% [markdown]
 # We can also update this value to change the default (until the kernel is restarted):
 
 # %%
-mpl.rcParams['figure.figsize'] = (300, 10)
-mpl.rcParams['figure.figsize']
+mpl.rcParams["figure.figsize"] = (300, 10)
+mpl.rcParams["figure.figsize"]
 
 # %% [markdown]
 # Use `rcdefaults()` to restore the defaults. Note this is slightly different than before because running `%matplotlib inline` sets a different value for `figsize` ([see more](https://github.com/ipython/ipykernel/blob/master/ipykernel/pylab/config.py#L42-L56)). After we reset, we are going back to the default value of `figsize` before that import:
 
 # %%
 mpl.rcdefaults()
-mpl.rcParams['figure.figsize']
+mpl.rcParams["figure.figsize"]
 
 # %% [markdown]
 # This can also be done via `pyplot`:
 
 # %%
-plt.rc('figure', figsize=(20, 20)) # change `figsize` default to (20, 20)
-plt.rcdefaults() # reset the default
-
-
+plt.rc("figure", figsize=(20, 20))  # change `figsize` default to (20, 20)
+plt.rcdefaults()  # reset the default
