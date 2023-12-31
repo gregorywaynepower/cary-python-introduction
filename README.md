@@ -113,6 +113,12 @@ conda install --revision N
 
 ## Python Modules
 
+### `polars`
+
+For in-memory analysis of tabular data and introduces the DataFrame for larger-than-memory datasets and want an API similar to pandas.
+
+- [Landing Page for `polars`](https://pola-rs.github.io/polars-book/)
+
 ### `pandas`
 
 For in-memory analysis of tabular data and introduces the DataFrame
@@ -146,12 +152,6 @@ If you need more control over your generated static map projection.
 If you need your dataset to have more than two dimensions.
 
 - [Landing Page for `xarray`](https://docs.xarray.dev/en/stable/)
-
-### `polars`
-
-If you are working with larger-than-memory datasets and want an API similar to pandas.
-
-- [Landing Page for `polars`](https://pola-rs.github.io/polars-book/)
 
 ### `matplotlib`
 
@@ -209,4 +209,7 @@ I highly recommend going through the official Python 3 tutorial first. It's a gr
   - [Git & Github Crash Course for Beginners](https://www.youtube.com/watch?v=HVsySz-h9r4&list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx&index=1)
   - [Want Richer Change History for Notebooks? Try ReviewNB](https://www.reviewnb.com)
 
-If you have anything you want to cover, I'm open to suggestions. My previous experience with python covers web scraping, cleaning data, statistical analysis, and moving data into and out of databases.
+## Contributing
+
+If you have anything you want to cover, I'm open to suggestions. Feel free to checkout the [contributing guidelines](CONTRIBUTING.md) for ways to offer feedback and contribute. My previous experience with python covers web scraping, cleaning data, statistical analysis, and moving data into and out of databases.
+
