@@ -1,6 +1,6 @@
 # Cary Introduction to Python & Anaconda
 
- [![Nbviewer](https://img.shields.io/badge/render-nbviewer-lightgrey?logo=jupyter)](https://nbviewer.org/github/gregorywaynepower/cary-python-introduction/tree/main/) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gregorywaynepower/cary-python-introduction/blob/main) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8249/badge)](https://www.bestpractices.dev/projects/8249)
+ [![Quarto Website](https://badgen.net/badge/color/Open%20Website/cyan?label=quarto)](https://gregorywaynepower.github.io/cary-python-introduction/) [![Nbviewer](https://img.shields.io/badge/render-nbviewer-lightgrey?logo=jupyter)](https://nbviewer.org/github/gregorywaynepower/cary-python-introduction/tree/main/) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gregorywaynepower/cary-python-introduction/blob/main) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8249/badge)](https://www.bestpractices.dev/projects/8249)
 
 ## Navigating the File Tree in this Repository
 
@@ -212,4 +212,3 @@ I highly recommend going through the official Python 3 tutorial first. It's a gr
 ## Contributing
 
 If you have anything you want to cover, I'm open to suggestions. Feel free to checkout the [contributing guidelines](CONTRIBUTING.md) for ways to offer feedback and contribute. My previous experience with python covers web scraping, cleaning data, statistical analysis, and moving data into and out of databases.
-
