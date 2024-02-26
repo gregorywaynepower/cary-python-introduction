@@ -1,0 +1,3279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cary Introduction to Python - Cleaning Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Cary Introduction to Python</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/cleaning_data.html">Cleaning Data</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/introduction_to_data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/python_101.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python 101</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/python_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Errors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/reading_local_files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">An Introduction to Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/making_dataframes_from_api_requests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Making Pandas DataFrames from API Requests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/wide_vs_long.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wide vs.&nbsp;Long Format Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/cleaning_data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Cleaning Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/handling_data_issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Handling duplicate, missing, or invalid data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/intro_to_plotly_express.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Animations in Plotly Express</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/introducing_matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Matplotlib</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/plotting_with_pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting with Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/pandas_plotting_module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The <code>pandas.plotting</code> module</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link active" data-scroll-target="#cleaning-data">Cleaning Data</a>
+  <ul class="collapse">
+  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the data</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#renaming-columns" id="toc-renaming-columns" class="nav-link" data-scroll-target="#renaming-columns">Renaming Columns</a></li>
+  <li><a href="#type-conversion" id="toc-type-conversion" class="nav-link" data-scroll-target="#type-conversion">Type Conversion</a></li>
+  <li><a href="#reordering-reindexing-and-sorting" id="toc-reordering-reindexing-and-sorting" class="nav-link" data-scroll-target="#reordering-reindexing-and-sorting">Reordering, reindexing, and sorting</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Cleaning Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cleaning-data" class="level1">
+<h1>Cleaning Data</h1>
+<section id="about-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="about-the-data">About the data</h2>
+<p>In this notebook, we will using daily temperature data from the <a href="https://www.ncdc.noaa.gov/cdo-web/webservices/v2">National Centers for Environmental Information (NCEI) API</a>. We will use the Global Historical Climatology Network - Daily (GHCND) dataset; see the documentation <a href="https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf">here</a>.</p>
+<p>This data was collected from the LaGuardia Airport station in New York City for October 2018. It contains: - the daily minimum temperature (<code>TMIN</code>) - the daily maximum temperature (<code>TMAX</code>) - the daily average temperature (<code>TAVG</code>)</p>
+<p><em>Note: The NCEI is part of the National Oceanic and Atmospheric Administration (NOAA) and, as you can see from the URL for the API, this resource was created when the NCEI was called the NCDC. Should the URL for this resource change in the future, you can search for “NCEI weather API” to find the updated one.</em></p>
+<p>In addition, we will be using S&amp;P 500 stock market data (obtained using the <a href="https://github.com/stefmolin/stock-analysis"><code>stock_analysis</code></a> package and data for bitcoin for 2017 through 2018. For the first edition, the bitcoin data was collected from CoinMarketCap using the <code>stock_analysis</code> package; however, changes in the website led to the necessity of changing the data source to Yahoo! Finance. The bitcoin data that was collected before the CoinMarketCap website change should be equivalent to the historical data that can be viewed on <a href="https://coinmarketcap.com/currencies/bitcoin/historical-data/">this</a> page.</p>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>We need to import <code>pandas</code> and read in the temperature data to get started:</p>
+<div id="cell-1" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/nyc_temperatures.csv'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">attributes</th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2018-10-01T00:00:00</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-01T00:00:00</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2018-10-01T00:00:00</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>18.3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018-10-02T00:00:00</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-02T00:00:00</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="renaming-columns" class="level2">
+<h2 class="anchored" data-anchor-id="renaming-columns">Renaming Columns</h2>
+<p>We start out with the following columns:</p>
+<div id="cell-3" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>Index(['date', 'datatype', 'station', 'attributes', 'value'], dtype='object')</code></pre>
+</div>
+</div>
+<p>We want to rename the <code>value</code> column to indicate it contains the temperature in Celsius and the <code>attributes</code> column to say <code>flags</code> since each value in the comma-delimited string is a different flag about the data collection. For this task, we use the <code>rename()</code> method and pass in a dictionary mapping the column names to their new names. We pass <code>inplace=True</code> to change our original dataframe instead of getting a new one back:</p>
+<div id="cell-5" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.rename(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'value'</span>: <span class="st">'temp_C'</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'attributes'</span>: <span class="st">'flags'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    }, inplace<span class="op">=</span><span class="va">True</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Those columns have been successfully renamed:</p>
+<div id="cell-7" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Index(['date', 'datatype', 'station', 'flags', 'temp_C'], dtype='object')</code></pre>
+</div>
+</div>
+<p>We can also perform string operations on the column names with <code>rename()</code>:</p>
+<div id="cell-9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.rename(<span class="bu">str</span>.upper, axis<span class="op">=</span><span class="st">'columns'</span>).columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Index(['DATE', 'DATATYPE', 'STATION', 'FLAGS', 'TEMP_C'], dtype='object')</code></pre>
+</div>
+</div>
+</section>
+<section id="type-conversion" class="level2">
+<h2 class="anchored" data-anchor-id="type-conversion">Type Conversion</h2>
+<p>The <code>date</code> column is not currently being stored as a <code>datetime</code>:</p>
+<div id="cell-11" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>date         object
+datatype     object
+station      object
+flags        object
+temp_C      float64
+dtype: object</code></pre>
+</div>
+</div>
+<p>Let’s perform the conversion with <code>pd.to_datetime()</code>:</p>
+<div id="cell-13" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.loc[:,<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df.date)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>date         object
+datatype     object
+station      object
+flags        object
+temp_C      float64
+dtype: object</code></pre>
+</div>
+</div>
+<p>Now we get useful information when we use <code>describe()</code> on this column:</p>
+<div id="cell-15" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.date.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>count                      93
+unique                     31
+top       2018-10-01 00:00:00
+freq                        3
+Name: date, dtype: object</code></pre>
+</div>
+</div>
+<p>We can use <code>tz_localize()</code> on a <code>DatetimeIndex</code> object to convert to a desired timezone:</p>
+<div id="cell-17" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pd.date_range(start<span class="op">=</span><span class="st">'2018-10-25'</span>, periods<span class="op">=</span><span class="dv">2</span>, freq<span class="op">=</span><span class="st">'D'</span>).tz_localize(<span class="st">'EST'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>DatetimeIndex(['2018-10-25 00:00:00-05:00', '2018-10-26 00:00:00-05:00'], dtype='datetime64[ns, EST]', freq=None)</code></pre>
+</div>
+</div>
+<p>This also works with <code>Series</code>/<code>DataFrame</code> objects that have an index of type <code>DatetimeIndex</code>. Let’s read in the CSV again for this example and set the <code>date</code> column to be the index and stored as a datetime:</p>
+<div id="cell-19" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>eastern <span class="op">=</span> pd.read_csv(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../data/nyc_temperatures.csv'</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>).tz_localize(<span class="st">'EST'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>eastern.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">attributes</th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-01 00:00:00-05:00</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-01 00:00:00-05:00</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-01 00:00:00-05:00</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>18.3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-02 00:00:00-05:00</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-02 00:00:00-05:00</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We can use <code>tz_convert()</code> to convert to another timezone from there. If we convert the Eastern datetimes to UTC, they will now be at 5 AM, since <code>pandas</code> will use the offsets to convert:</p>
+<div id="cell-21" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>eastern.tz_convert(<span class="st">'UTC'</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">attributes</th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-01 05:00:00+00:00</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-01 05:00:00+00:00</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-01 05:00:00+00:00</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>18.3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-02 05:00:00+00:00</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-02 05:00:00+00:00</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We can change the period of the index as well. We could change the period to be monthly to make it easier to aggregate later.</p>
+<p>The reason we have to add the parameter within <code>tz_localize()</code> to <code>None</code> for this, is because we’ll get a warning from <code>pandas</code> that our output class <code>PeriodArray</code> doesn’t have time zone information and we’ll lose it.</p>
+<div id="cell-23" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>eastern.tz_localize(<span class="va">None</span>).to_period(<span class="st">'M'</span>).index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>PeriodIndex(['2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10', '2018-10', '2018-10', '2018-10',
+             '2018-10', '2018-10', '2018-10'],
+            dtype='period[M]', name='date')</code></pre>
+</div>
+</div>
+<p>We now get a <code>PeriodIndex</code> object, which we can change back into a <code>DatetimeIndex</code> object with <code>to_timestamp()</code>:</p>
+<div id="cell-25" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>eastern.tz_localize(<span class="va">None</span>).to_period(<span class="st">'M'</span>).to_timestamp().index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>DatetimeIndex(['2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01', '2018-10-01', '2018-10-01', '2018-10-01',
+               '2018-10-01'],
+              dtype='datetime64[ns]', name='date', freq=None)</code></pre>
+</div>
+</div>
+<p>We can use the <code>assign()</code> method for working with multiple columns at once (or creating new ones). Since our <code>date</code> column has already been converted, we need to read in the data again:</p>
+<div id="cell-27" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/nyc_temperatures.csv'</span>).rename(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'value'</span>: <span class="st">'temp_C'</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'attributes'</span>: <span class="st">'flags'</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>new_df <span class="op">=</span> df.assign(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span>pd.to_datetime(df.date),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    temp_F<span class="op">=</span>(df.temp_C <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span>) <span class="op">+</span> <span class="dv">32</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>new_df.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>date        datetime64[ns]
+datatype            object
+station             object
+flags               object
+temp_C             float64
+temp_F             float64
+dtype: object</code></pre>
+</div>
+</div>
+<p>The <code>date</code> column now has datetimes and the <code>temp_F</code> column was added:</p>
+<div id="cell-29" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>new_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2018-10-01</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+<td>70.16</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-01</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>78.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2018-10-01</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>18.3</td>
+<td>64.94</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018-10-02</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+<td>72.86</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-02</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>78.98</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We can also use <code>astype()</code> to perform conversions. Let’s create columns of the integer portion of the temperatures in Celsius and Fahrenheit. We will use <strong>lambda functions</strong> (first introduced in <em>Chapter 2, Working with Pandas DataFrames</em>), so that we can use the values being created in the <code>temp_F</code> column to calculate the <code>temp_F_whole</code> column. It is very common (and useful) to use lambda functions with <code>assign()</code>:</p>
+<div id="cell-31" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.assign(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="kw">lambda</span> x: pd.to_datetime(x.date),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    temp_C_whole<span class="op">=</span><span class="kw">lambda</span> x: x.temp_C.astype(<span class="st">'int'</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    temp_F<span class="op">=</span><span class="kw">lambda</span> x: (x.temp_C <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span>) <span class="op">+</span> <span class="dv">32</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    temp_F_whole<span class="op">=</span><span class="kw">lambda</span> x: x.temp_F.astype(<span class="st">'int'</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2018-10-01</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+<td>21</td>
+<td>70.16</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-01</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2018-10-01</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>18.3</td>
+<td>18</td>
+<td>64.94</td>
+<td>64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018-10-02</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+<td>22</td>
+<td>72.86</td>
+<td>72</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-02</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Creating categories:</p>
+<div id="cell-33" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_with_categories <span class="op">=</span> df.assign(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    station<span class="op">=</span>df.station.astype(<span class="st">'category'</span>),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    datatype<span class="op">=</span>df.datatype.astype(<span class="st">'category'</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>df_with_categories.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>date            datetime64[ns]
+datatype              category
+station               category
+flags                   object
+temp_C                 float64
+temp_C_whole             int32
+temp_F                 float64
+temp_F_whole             int32
+dtype: object</code></pre>
+</div>
+</div>
+<div id="cell-34" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_with_categories.describe(include<span class="op">=</span><span class="st">'category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>93</td>
+<td>93</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">unique</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">top</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">freq</td>
+<td>31</td>
+<td>93</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Our categories have no order, but this is something that <code>pandas</code> supports:</p>
+<div id="cell-36" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pd.Categorical(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'med'</span>, <span class="st">'med'</span>, <span class="st">'low'</span>, <span class="st">'high'</span>], </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    categories<span class="op">=</span>[<span class="st">'low'</span>, <span class="st">'med'</span>, <span class="st">'high'</span>],</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    ordered<span class="op">=</span><span class="va">True</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>['med', 'med', 'low', 'high']
+Categories (3, object): ['low' &lt; 'med' &lt; 'high']</code></pre>
+</div>
+</div>
+</section>
+<section id="reordering-reindexing-and-sorting" class="level2">
+<h2 class="anchored" data-anchor-id="reordering-reindexing-and-sorting">Reordering, reindexing, and sorting</h2>
+<p>Say we want to find the days that reached the hottest temperatures in the weather data; we can sort our values by the <code>temp_C</code> column with the largest on top to find this:</p>
+<div id="cell-38" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df[df.datatype <span class="op">==</span> <span class="st">'TMAX'</span>].sort_values(by<span class="op">=</span><span class="st">'temp_C'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>2018-10-07</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>27.8</td>
+<td>27</td>
+<td>82.04</td>
+<td>82</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">28</td>
+<td>2018-10-10</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>27.8</td>
+<td>27</td>
+<td>82.04</td>
+<td>82</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31</td>
+<td>2018-10-11</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.7</td>
+<td>26</td>
+<td>80.06</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>2018-10-04</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-02</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-01</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>2018-10-09</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2018-10-03</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.0</td>
+<td>25</td>
+<td>77.00</td>
+<td>77</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>2018-10-05</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">22</td>
+<td>2018-10-08</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>However, this isn’t perfect because we have some ties, and they aren’t sorted consistently. In the first tie between the 7th and the 10th, the earlier date comes first, but the opposite is true with the tie between the 4th and the 2nd. We can use other columns to break ties and specify how to sort each with <code>ascending</code>. Let’s break ties with the date column and show earlier dates before later ones:</p>
+<div id="cell-40" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df[df.datatype <span class="op">==</span> <span class="st">'TMAX'</span>].sort_values(by<span class="op">=</span>[<span class="st">'temp_C'</span>, <span class="st">'date'</span>], ascending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>]).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>2018-10-07</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>27.8</td>
+<td>27</td>
+<td>82.04</td>
+<td>82</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">28</td>
+<td>2018-10-10</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>27.8</td>
+<td>27</td>
+<td>82.04</td>
+<td>82</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31</td>
+<td>2018-10-11</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.7</td>
+<td>26</td>
+<td>80.06</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-02</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>2018-10-04</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-01</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>2018-10-09</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2018-10-03</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.0</td>
+<td>25</td>
+<td>77.00</td>
+<td>77</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>2018-10-05</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">22</td>
+<td>2018-10-08</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notice that the index was jumbled in the past 2 results. Here, our index only stores the row number in the original data, but we may not need to keep track of that information. In this case, we can pass in <code>ignore_index=True</code> to get a new index after sorting:</p>
+<div id="cell-42" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df[df.datatype <span class="op">==</span> <span class="st">'TMAX'</span>].sort_values(by<span class="op">=</span>[<span class="st">'temp_C'</span>, <span class="st">'date'</span>], ascending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>], ignore_index<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2018-10-07</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>27.8</td>
+<td>27</td>
+<td>82.04</td>
+<td>82</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-10</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>27.8</td>
+<td>27</td>
+<td>82.04</td>
+<td>82</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2018-10-11</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.7</td>
+<td>26</td>
+<td>80.06</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018-10-02</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-04</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2018-10-01</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2018-10-09</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2018-10-03</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.0</td>
+<td>25</td>
+<td>77.00</td>
+<td>77</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>2018-10-05</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>2018-10-08</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>When just looking for the n-largest values, rather than wanting to sort all the data, we can use <code>nlargest()</code>:</p>
+<div id="cell-44" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df[df.datatype <span class="op">==</span> <span class="st">'TAVG'</span>].nlargest(n<span class="op">=</span><span class="dv">10</span>, columns<span class="op">=</span><span class="st">'temp_C'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">27</td>
+<td>2018-10-10</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>23.8</td>
+<td>23</td>
+<td>74.84</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">30</td>
+<td>2018-10-11</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>23.4</td>
+<td>23</td>
+<td>74.12</td>
+<td>74</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>2018-10-07</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.8</td>
+<td>22</td>
+<td>73.04</td>
+<td>73</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018-10-02</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+<td>22</td>
+<td>72.86</td>
+<td>72</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2018-10-03</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.8</td>
+<td>21</td>
+<td>71.24</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">24</td>
+<td>2018-10-09</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.8</td>
+<td>21</td>
+<td>71.24</td>
+<td>71</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>2018-10-04</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.3</td>
+<td>21</td>
+<td>70.34</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2018-10-01</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+<td>21</td>
+<td>70.16</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21</td>
+<td>2018-10-08</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>20.9</td>
+<td>20</td>
+<td>69.62</td>
+<td>69</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12</td>
+<td>2018-10-05</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>20.3</td>
+<td>20</td>
+<td>68.54</td>
+<td>68</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We use <code>nsmallest()</code> for the n-smallest values.</p>
+<div id="cell-46" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df.nsmallest(n<span class="op">=</span><span class="dv">5</span>, columns<span class="op">=</span>[<span class="st">'temp_C'</span>, <span class="st">'date'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">65</td>
+<td>2018-10-22</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>5.6</td>
+<td>5</td>
+<td>42.08</td>
+<td>42</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">77</td>
+<td>2018-10-26</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>5.6</td>
+<td>5</td>
+<td>42.08</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">62</td>
+<td>2018-10-21</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>6.1</td>
+<td>6</td>
+<td>42.98</td>
+<td>42</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">74</td>
+<td>2018-10-25</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>6.1</td>
+<td>6</td>
+<td>42.98</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">53</td>
+<td>2018-10-18</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>6.7</td>
+<td>6</td>
+<td>44.06</td>
+<td>44</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The <code>sample()</code> method will give us rows (or columns with <code>axis=1</code>) at random. We can provide a seed (<code>random_state</code>) to make this reproducible. The index after we do this is jumbled:</p>
+<div id="cell-48" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>).index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>Index([2, 30, 55, 16, 13], dtype='int64')</code></pre>
+</div>
+</div>
+<p>We can use <code>sort_index()</code> to order it again:</p>
+<div id="cell-50" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">0</span>).sort_index().index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>Index([2, 13, 16, 30, 55], dtype='int64')</code></pre>
+</div>
+</div>
+<p>The <code>sort_index()</code> method can also sort columns alphabetically:</p>
+<div id="cell-52" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df.sort_index(axis<span class="op">=</span><span class="dv">1</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>TAVG</td>
+<td>2018-10-01</td>
+<td>H,,S,</td>
+<td>GHCND:USW00014732</td>
+<td>21.2</td>
+<td>21</td>
+<td>70.16</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>TMAX</td>
+<td>2018-10-01</td>
+<td>,,W,2400</td>
+<td>GHCND:USW00014732</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>TMIN</td>
+<td>2018-10-01</td>
+<td>,,W,2400</td>
+<td>GHCND:USW00014732</td>
+<td>18.3</td>
+<td>18</td>
+<td>64.94</td>
+<td>64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>TAVG</td>
+<td>2018-10-02</td>
+<td>H,,S,</td>
+<td>GHCND:USW00014732</td>
+<td>22.7</td>
+<td>22</td>
+<td>72.86</td>
+<td>72</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>TMAX</td>
+<td>2018-10-02</td>
+<td>,,W,2400</td>
+<td>GHCND:USW00014732</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This can make selection with <code>loc</code> easier for many columns:</p>
+<div id="cell-54" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df.sort_index(axis<span class="op">=</span><span class="dv">1</span>).head().loc[:,<span class="st">'temp_C'</span>:<span class="st">'temp_F_whole'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>21.2</td>
+<td>21</td>
+<td>70.16</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>18.3</td>
+<td>18</td>
+<td>64.94</td>
+<td>64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>22.7</td>
+<td>22</td>
+<td>72.86</td>
+<td>72</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We must sort the index to compare two dataframes. If the index is different, but the data is the same, they will be marked not-equal:</p>
+<div id="cell-56" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df.equals(df.sort_values(by<span class="op">=</span><span class="st">'temp_C'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>False</code></pre>
+</div>
+</div>
+<p>Sorting the index solves this issue:</p>
+<div id="cell-58" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df.equals(df.sort_values(by<span class="op">=</span><span class="st">'temp_C'</span>).sort_index())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>Let’s set the <code>date</code> column as our index:</p>
+<div id="cell-60" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'date'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-01</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>21.2</td>
+<td>21</td>
+<td>70.16</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-01</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>25.6</td>
+<td>25</td>
+<td>78.08</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-01</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>18.3</td>
+<td>18</td>
+<td>64.94</td>
+<td>64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-02</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>22.7</td>
+<td>22</td>
+<td>72.86</td>
+<td>72</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-02</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.1</td>
+<td>26</td>
+<td>78.98</td>
+<td>78</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Now that we have an index of type <code>DatetimeIndex</code>, we can do datetime slicing and indexing. As long as we provide a date format that pandas understands, we can grab the data. To select all of 2018, we simply use <code>df.loc['2018']</code>, for the fourth quarter of 2018 we can use <code>df.loc['2018-Q4']</code>, grabbing October is as simple as using <code>df.loc['2018-10']</code>; these can also be combined to build ranges. Let’s grab October 11, 2018 through October 12, 2018 (inclusive of both endpoints)—note that using <code>loc[]</code> is optional for ranges:</p>
+<div id="cell-62" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'2018-10-11'</span>:<span class="st">'2018-10-12'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-11</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>23.4</td>
+<td>23</td>
+<td>74.12</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-11</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.7</td>
+<td>26</td>
+<td>80.06</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-11</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>21.7</td>
+<td>21</td>
+<td>71.06</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-12</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>18.3</td>
+<td>18</td>
+<td>64.94</td>
+<td>64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2018-10-12</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.2</td>
+<td>22</td>
+<td>71.96</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2018-10-12</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>12.2</td>
+<td>12</td>
+<td>53.96</td>
+<td>53</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We can also use <code>reset_index()</code> to get a fresh index and move our current index into a column for safe keeping. This is especially useful if we had data, such as the date, in the index that we don’t want to lose:</p>
+<div id="cell-64" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'2018-10-11'</span>:<span class="st">'2018-10-12'</span>].reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">datatype</th>
+<th data-quarto-table-cell-role="th">station</th>
+<th data-quarto-table-cell-role="th">flags</th>
+<th data-quarto-table-cell-role="th">temp_C</th>
+<th data-quarto-table-cell-role="th">temp_C_whole</th>
+<th data-quarto-table-cell-role="th">temp_F</th>
+<th data-quarto-table-cell-role="th">temp_F_whole</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2018-10-11</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>23.4</td>
+<td>23</td>
+<td>74.12</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2018-10-11</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>26.7</td>
+<td>26</td>
+<td>80.06</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2018-10-11</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>21.7</td>
+<td>21</td>
+<td>71.06</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2018-10-12</td>
+<td>TAVG</td>
+<td>GHCND:USW00014732</td>
+<td>H,,S,</td>
+<td>18.3</td>
+<td>18</td>
+<td>64.94</td>
+<td>64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2018-10-12</td>
+<td>TMAX</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>22.2</td>
+<td>22</td>
+<td>71.96</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2018-10-12</td>
+<td>TMIN</td>
+<td>GHCND:USW00014732</td>
+<td>,,W,2400</td>
+<td>12.2</td>
+<td>12</td>
+<td>53.96</td>
+<td>53</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Reindexing allows us to conform our axis to contain a given set of labels. Let’s turn to the S&amp;P 500 stock data in the <code>sp500.csv</code> file to see an example of this. Notice we only have data for trading days (weekdays, excluding holidays):</p>
+<div id="cell-66" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sp <span class="op">=</span> pd.read_csv(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../data/sp500.csv'</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>).drop(columns<span class="op">=</span>[<span class="st">'adj_close'</span>])</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>sp.head(<span class="dv">10</span>).assign(</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    day_of_week<span class="op">=</span><span class="kw">lambda</span> x: x.index.day_name()</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">high</th>
+<th data-quarto-table-cell-role="th">low</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">volume</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-03</td>
+<td>2263.879883</td>
+<td>2245.129883</td>
+<td>2251.570068</td>
+<td>2257.830078</td>
+<td>3770530000</td>
+<td>Tuesday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-04</td>
+<td>2272.820068</td>
+<td>2261.600098</td>
+<td>2261.600098</td>
+<td>2270.750000</td>
+<td>3764890000</td>
+<td>Wednesday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-05</td>
+<td>2271.500000</td>
+<td>2260.449951</td>
+<td>2268.179932</td>
+<td>2269.000000</td>
+<td>3761820000</td>
+<td>Thursday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-06</td>
+<td>2282.100098</td>
+<td>2264.060059</td>
+<td>2271.139893</td>
+<td>2276.979980</td>
+<td>3339890000</td>
+<td>Friday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-09</td>
+<td>2275.489990</td>
+<td>2268.899902</td>
+<td>2273.590088</td>
+<td>2268.899902</td>
+<td>3217610000</td>
+<td>Monday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-10</td>
+<td>2279.270020</td>
+<td>2265.270020</td>
+<td>2269.719971</td>
+<td>2268.899902</td>
+<td>3638790000</td>
+<td>Tuesday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-11</td>
+<td>2275.320068</td>
+<td>2260.830078</td>
+<td>2268.600098</td>
+<td>2275.320068</td>
+<td>3620410000</td>
+<td>Wednesday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-12</td>
+<td>2271.780029</td>
+<td>2254.250000</td>
+<td>2271.139893</td>
+<td>2270.439941</td>
+<td>3462130000</td>
+<td>Thursday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-13</td>
+<td>2278.679932</td>
+<td>2271.510010</td>
+<td>2272.739990</td>
+<td>2274.639893</td>
+<td>3081270000</td>
+<td>Friday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-17</td>
+<td>2272.080078</td>
+<td>2262.810059</td>
+<td>2269.139893</td>
+<td>2267.889893</td>
+<td>3584990000</td>
+<td>Tuesday</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>If we want to look at the value of a portfolio (group of assets) that trade on different days, we need to handle the mismatch in the index. Bitcoin, for example, trades daily. If we sum up all the data we have for each day (aggregations will be covered in chapter 4, so don’t fixate on this part), we get the following:</p>
+<div id="cell-68" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>bitcoin <span class="op">=</span> pd.read_csv(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../data/bitcoin.csv'</span>, index_col<span class="op">=</span><span class="st">'date'</span>, parse_dates<span class="op">=</span><span class="va">True</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>).drop(columns<span class="op">=</span>[<span class="st">'market_cap'</span>])</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co"># every day's closing price = S&amp;P 500 close + Bitcoin close (same for other metrics)</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>portfolio <span class="op">=</span> pd.concat([sp, bitcoin], sort<span class="op">=</span><span class="va">False</span>).groupby(level<span class="op">=</span><span class="st">'date'</span>).<span class="bu">sum</span>()</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>portfolio.head(<span class="dv">10</span>).assign(</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    day_of_week<span class="op">=</span><span class="kw">lambda</span> x: x.index.day_name()</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">high</th>
+<th data-quarto-table-cell-role="th">low</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">volume</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-01</td>
+<td>1003.080000</td>
+<td>958.700000</td>
+<td>963.660000</td>
+<td>998.330000</td>
+<td>147775008</td>
+<td>Sunday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-02</td>
+<td>1031.390000</td>
+<td>996.700000</td>
+<td>998.620000</td>
+<td>1021.750000</td>
+<td>222184992</td>
+<td>Monday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-03</td>
+<td>3307.959883</td>
+<td>3266.729883</td>
+<td>3273.170068</td>
+<td>3301.670078</td>
+<td>3955698000</td>
+<td>Tuesday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-04</td>
+<td>3432.240068</td>
+<td>3306.000098</td>
+<td>3306.000098</td>
+<td>3425.480000</td>
+<td>4109835984</td>
+<td>Wednesday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-05</td>
+<td>3462.600000</td>
+<td>3170.869951</td>
+<td>3424.909932</td>
+<td>3282.380000</td>
+<td>4272019008</td>
+<td>Thursday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-06</td>
+<td>3328.910098</td>
+<td>3148.000059</td>
+<td>3285.379893</td>
+<td>3179.179980</td>
+<td>3691766000</td>
+<td>Friday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-07</td>
+<td>908.590000</td>
+<td>823.560000</td>
+<td>903.490000</td>
+<td>908.590000</td>
+<td>279550016</td>
+<td>Saturday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-08</td>
+<td>942.720000</td>
+<td>887.250000</td>
+<td>908.170000</td>
+<td>911.200000</td>
+<td>158715008</td>
+<td>Sunday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-09</td>
+<td>3189.179990</td>
+<td>3148.709902</td>
+<td>3186.830088</td>
+<td>3171.729902</td>
+<td>3359486992</td>
+<td>Monday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-10</td>
+<td>3194.140020</td>
+<td>3166.330020</td>
+<td>3172.159971</td>
+<td>3176.579902</td>
+<td>3754598000</td>
+<td>Tuesday</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>It may not be immediately obvious what is wrong with the previous data, but with a visualization we can easily see the cyclical pattern of drops on the days the stock market is closed. (Don’t worry about the plotting code too much, we will cover it in depth in chapters 5 and 6).</p>
+<p>We will need to import <code>matplotlib</code> now:</p>
+<div id="cell-70" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co"># we use this module for plotting</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> StrMethodFormatter <span class="co"># for formatting the axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can see why we need to reindex:</p>
+<div id="cell-72" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the closing price from Q4 2017 through Q2 2018</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> portfolio[<span class="st">'2017-Q4'</span>:<span class="st">'2018-Q2'</span>].plot(</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'close'</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>), legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Bitcoin + S&amp;P 500 value without accounting for different indices'</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># formatting</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'price'</span>)</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(StrMethodFormatter(<span class="st">'$</span><span class="sc">{x:,.0f}</span><span class="st">'</span>))</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> spine <span class="kw">in</span> [<span class="st">'top'</span>, <span class="st">'right'</span>]:</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    ax.spines[spine].set_visible(<span class="va">False</span>)</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="co"># show the plot</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cleaning_data_files/figure-html/cell-38-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We need to align the index of the S&amp;P 500 to match bitcoin in order to fix this. We will use the <code>reindex()</code> method, but by default we get <code>NaN</code> for the values that we don’t have data for:</p>
+<div id="cell-74" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>sp.reindex(bitcoin.index).head(<span class="dv">10</span>).assign(</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    day_of_week<span class="op">=</span><span class="kw">lambda</span> x: x.index.day_name()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">high</th>
+<th data-quarto-table-cell-role="th">low</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">volume</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Sunday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-02</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Monday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-03</td>
+<td>2263.879883</td>
+<td>2245.129883</td>
+<td>2251.570068</td>
+<td>2257.830078</td>
+<td>3.770530e+09</td>
+<td>Tuesday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-04</td>
+<td>2272.820068</td>
+<td>2261.600098</td>
+<td>2261.600098</td>
+<td>2270.750000</td>
+<td>3.764890e+09</td>
+<td>Wednesday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-05</td>
+<td>2271.500000</td>
+<td>2260.449951</td>
+<td>2268.179932</td>
+<td>2269.000000</td>
+<td>3.761820e+09</td>
+<td>Thursday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-06</td>
+<td>2282.100098</td>
+<td>2264.060059</td>
+<td>2271.139893</td>
+<td>2276.979980</td>
+<td>3.339890e+09</td>
+<td>Friday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Saturday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-08</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Sunday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-09</td>
+<td>2275.489990</td>
+<td>2268.899902</td>
+<td>2273.590088</td>
+<td>2268.899902</td>
+<td>3.217610e+09</td>
+<td>Monday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-10</td>
+<td>2279.270020</td>
+<td>2265.270020</td>
+<td>2269.719971</td>
+<td>2268.899902</td>
+<td>3.638790e+09</td>
+<td>Tuesday</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>So now we have rows for every day of the year, but all the weekends and holidays have <code>NaN</code> values. To address this, we can specify how to handle missing values with the <code>method</code> argument. In this case, we want to forward-fill, which will put the weekend and holiday values as the value they had for the Friday (or end of trading week) before:</p>
+<div id="cell-76" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sp.reindex(bitcoin.index, method<span class="op">=</span><span class="st">'ffill'</span>).head(<span class="dv">10</span>)<span class="op">\</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    .assign(day_of_week<span class="op">=</span><span class="kw">lambda</span> x: x.index.day_name())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">high</th>
+<th data-quarto-table-cell-role="th">low</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">volume</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Sunday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-02</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Monday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-03</td>
+<td>2263.879883</td>
+<td>2245.129883</td>
+<td>2251.570068</td>
+<td>2257.830078</td>
+<td>3.770530e+09</td>
+<td>Tuesday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-04</td>
+<td>2272.820068</td>
+<td>2261.600098</td>
+<td>2261.600098</td>
+<td>2270.750000</td>
+<td>3.764890e+09</td>
+<td>Wednesday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-05</td>
+<td>2271.500000</td>
+<td>2260.449951</td>
+<td>2268.179932</td>
+<td>2269.000000</td>
+<td>3.761820e+09</td>
+<td>Thursday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-06</td>
+<td>2282.100098</td>
+<td>2264.060059</td>
+<td>2271.139893</td>
+<td>2276.979980</td>
+<td>3.339890e+09</td>
+<td>Friday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-07</td>
+<td>2282.100098</td>
+<td>2264.060059</td>
+<td>2271.139893</td>
+<td>2276.979980</td>
+<td>3.339890e+09</td>
+<td>Saturday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-08</td>
+<td>2282.100098</td>
+<td>2264.060059</td>
+<td>2271.139893</td>
+<td>2276.979980</td>
+<td>3.339890e+09</td>
+<td>Sunday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-09</td>
+<td>2275.489990</td>
+<td>2268.899902</td>
+<td>2273.590088</td>
+<td>2268.899902</td>
+<td>3.217610e+09</td>
+<td>Monday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-10</td>
+<td>2279.270020</td>
+<td>2265.270020</td>
+<td>2269.719971</td>
+<td>2268.899902</td>
+<td>3.638790e+09</td>
+<td>Tuesday</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>To isolate the changes happening with the forward-filling, we can use the <code>compare()</code> method. It shows us the values that differ across identically-labeled dataframes (same names and same columns). Here, we can see that only weekends and holidays (Monday, January 16, 2017 was MLK day) have values forward-filled. Notice that consecutive days have the same values.</p>
+<div id="cell-78" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>sp.reindex(bitcoin.index)<span class="op">\</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    .compare(sp.reindex(bitcoin.index, method<span class="op">=</span><span class="st">'ffill'</span>))<span class="op">\</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">10</span>).assign(day_of_week<span class="op">=</span><span class="kw">lambda</span> x: x.index.day_name())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">high</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">low</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">open</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">close</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">volume</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">self</th>
+<th data-quarto-table-cell-role="th">other</th>
+<th data-quarto-table-cell-role="th">self</th>
+<th data-quarto-table-cell-role="th">other</th>
+<th data-quarto-table-cell-role="th">self</th>
+<th data-quarto-table-cell-role="th">other</th>
+<th data-quarto-table-cell-role="th">self</th>
+<th data-quarto-table-cell-role="th">other</th>
+<th data-quarto-table-cell-role="th">self</th>
+<th data-quarto-table-cell-role="th">other</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-07</td>
+<td>NaN</td>
+<td>2282.100098</td>
+<td>NaN</td>
+<td>2264.060059</td>
+<td>NaN</td>
+<td>2271.139893</td>
+<td>NaN</td>
+<td>2276.979980</td>
+<td>NaN</td>
+<td>3.339890e+09</td>
+<td>Saturday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-08</td>
+<td>NaN</td>
+<td>2282.100098</td>
+<td>NaN</td>
+<td>2264.060059</td>
+<td>NaN</td>
+<td>2271.139893</td>
+<td>NaN</td>
+<td>2276.979980</td>
+<td>NaN</td>
+<td>3.339890e+09</td>
+<td>Sunday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-14</td>
+<td>NaN</td>
+<td>2278.679932</td>
+<td>NaN</td>
+<td>2271.510010</td>
+<td>NaN</td>
+<td>2272.739990</td>
+<td>NaN</td>
+<td>2274.639893</td>
+<td>NaN</td>
+<td>3.081270e+09</td>
+<td>Saturday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-15</td>
+<td>NaN</td>
+<td>2278.679932</td>
+<td>NaN</td>
+<td>2271.510010</td>
+<td>NaN</td>
+<td>2272.739990</td>
+<td>NaN</td>
+<td>2274.639893</td>
+<td>NaN</td>
+<td>3.081270e+09</td>
+<td>Sunday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-16</td>
+<td>NaN</td>
+<td>2278.679932</td>
+<td>NaN</td>
+<td>2271.510010</td>
+<td>NaN</td>
+<td>2272.739990</td>
+<td>NaN</td>
+<td>2274.639893</td>
+<td>NaN</td>
+<td>3.081270e+09</td>
+<td>Monday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-21</td>
+<td>NaN</td>
+<td>2276.959961</td>
+<td>NaN</td>
+<td>2265.010010</td>
+<td>NaN</td>
+<td>2269.959961</td>
+<td>NaN</td>
+<td>2271.310059</td>
+<td>NaN</td>
+<td>3.524970e+09</td>
+<td>Saturday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-22</td>
+<td>NaN</td>
+<td>2276.959961</td>
+<td>NaN</td>
+<td>2265.010010</td>
+<td>NaN</td>
+<td>2269.959961</td>
+<td>NaN</td>
+<td>2271.310059</td>
+<td>NaN</td>
+<td>3.524970e+09</td>
+<td>Sunday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-28</td>
+<td>NaN</td>
+<td>2299.020020</td>
+<td>NaN</td>
+<td>2291.620117</td>
+<td>NaN</td>
+<td>2299.020020</td>
+<td>NaN</td>
+<td>2294.689941</td>
+<td>NaN</td>
+<td>3.135890e+09</td>
+<td>Saturday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-29</td>
+<td>NaN</td>
+<td>2299.020020</td>
+<td>NaN</td>
+<td>2291.620117</td>
+<td>NaN</td>
+<td>2299.020020</td>
+<td>NaN</td>
+<td>2294.689941</td>
+<td>NaN</td>
+<td>3.135890e+09</td>
+<td>Sunday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-02-04</td>
+<td>NaN</td>
+<td>2298.310059</td>
+<td>NaN</td>
+<td>2287.879883</td>
+<td>NaN</td>
+<td>2288.540039</td>
+<td>NaN</td>
+<td>2297.419922</td>
+<td>NaN</td>
+<td>3.597970e+09</td>
+<td>Saturday</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This isn’t perfect though. We probably want 0 for the volume traded and to put the closing price for the open, high, low, and close on the days the market is closed:</p>
+<p>The reason why we’re using <code>np.where(boolean condition, value if True, value if False)</code> within <code>lambda</code> functions in the example below, is that <b>vectorized operations</b> allow us to be faster and more efficient than utilizing <code>for</code> loops to perform calculations on arrays all at once.</p>
+<div id="cell-80" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>sp_reindexed <span class="op">=</span> sp.reindex(bitcoin.index).assign(</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    volume<span class="op">=</span><span class="kw">lambda</span> x: x.volume.fillna(<span class="dv">0</span>), <span class="co"># put 0 when market is closed</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    close<span class="op">=</span><span class="kw">lambda</span> x: x.close.fillna(method<span class="op">=</span><span class="st">'ffill'</span>), <span class="co"># carry this forward</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># take the closing price if these aren't available</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">open</span><span class="op">=</span><span class="kw">lambda</span> x: np.where(x.<span class="bu">open</span>.isnull(), x.close, x.<span class="bu">open</span>),</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    high<span class="op">=</span><span class="kw">lambda</span> x: np.where(x.high.isnull(), x.close, x.high),</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    low<span class="op">=</span><span class="kw">lambda</span> x: np.where(x.low.isnull(), x.close, x.low)</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>sp_reindexed.head(<span class="dv">10</span>).assign(</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>    day_of_week<span class="op">=</span><span class="kw">lambda</span> x: x.index.day_name()</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">high</th>
+<th data-quarto-table-cell-role="th">low</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">volume</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.000000e+00</td>
+<td>Sunday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-02</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.000000e+00</td>
+<td>Monday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-03</td>
+<td>2263.879883</td>
+<td>2245.129883</td>
+<td>2251.570068</td>
+<td>2257.830078</td>
+<td>3.770530e+09</td>
+<td>Tuesday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-04</td>
+<td>2272.820068</td>
+<td>2261.600098</td>
+<td>2261.600098</td>
+<td>2270.750000</td>
+<td>3.764890e+09</td>
+<td>Wednesday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-05</td>
+<td>2271.500000</td>
+<td>2260.449951</td>
+<td>2268.179932</td>
+<td>2269.000000</td>
+<td>3.761820e+09</td>
+<td>Thursday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-06</td>
+<td>2282.100098</td>
+<td>2264.060059</td>
+<td>2271.139893</td>
+<td>2276.979980</td>
+<td>3.339890e+09</td>
+<td>Friday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-07</td>
+<td>2276.979980</td>
+<td>2276.979980</td>
+<td>2276.979980</td>
+<td>2276.979980</td>
+<td>0.000000e+00</td>
+<td>Saturday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-08</td>
+<td>2276.979980</td>
+<td>2276.979980</td>
+<td>2276.979980</td>
+<td>2276.979980</td>
+<td>0.000000e+00</td>
+<td>Sunday</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2017-01-09</td>
+<td>2275.489990</td>
+<td>2268.899902</td>
+<td>2273.590088</td>
+<td>2268.899902</td>
+<td>3.217610e+09</td>
+<td>Monday</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2017-01-10</td>
+<td>2279.270020</td>
+<td>2265.270020</td>
+<td>2269.719971</td>
+<td>2268.899902</td>
+<td>3.638790e+09</td>
+<td>Tuesday</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>If we create a visualization comparing the reindexed data to the first attempt, we see how reindexing helped maintain the asset value when the market was closed:</p>
+<div id="cell-82" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># every day's closing price = S&amp;P 500 close adjusted for market closure + Bitcoin close (same for other metrics)</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>fixed_portfolio <span class="op">=</span> sp_reindexed <span class="op">+</span> bitcoin</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the reindexed portfolio's closing price from Q4 2017 through Q2 2018</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fixed_portfolio[<span class="st">'2017-Q4'</span>:<span class="st">'2018-Q2'</span>].plot(</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'close'</span>, label<span class="op">=</span><span class="st">'reindexed portfolio of S&amp;P 500 + Bitcoin'</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>), linewidth<span class="op">=</span><span class="dv">2</span>, </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Reindexed portfolio vs. portfolio with mismatched indices'</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co"># add line for original portfolio for comparison</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>portfolio[<span class="st">'2017-Q4'</span>:<span class="st">'2018-Q2'</span>].plot(</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'close'</span>, ax<span class="op">=</span>ax, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'portfolio of S&amp;P 500 + Bitcoin w/o reindexing'</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="co"># formatting</span></span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'price'</span>)</span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(StrMethodFormatter(<span class="st">'$</span><span class="sc">{x:,.0f}</span><span class="st">'</span>))</span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> spine <span class="kw">in</span> [<span class="st">'top'</span>, <span class="st">'right'</span>]:</span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a>    ax.spines[spine].set_visible(<span class="va">False</span>)</span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a><span class="co"># show the plot</span></span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cleaning_data_files/figure-html/cell-43-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

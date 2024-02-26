@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cary Introduction to Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Cary Introduction to Python</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/introduction_to_data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Data Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypothesis Testing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/python_101.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python 101</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/python_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Errors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/reading_local_files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">An Introduction to Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/making_dataframes_from_api_requests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Making Pandas DataFrames from API Requests</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/wide_vs_long.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wide vs.&nbsp;Long Format Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/cleaning_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/handling_data_issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Handling duplicate, missing, or invalid data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/intro_to_plotly_express.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Animations in Plotly Express</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/introducing_matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Matplotlib</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/plotting_with_pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting with Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/pandas_plotting_module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The <code>pandas.plotting</code> module</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cary-introduction-to-python-anaconda" id="toc-cary-introduction-to-python-anaconda" class="nav-link active" data-scroll-target="#cary-introduction-to-python-anaconda">Cary Introduction to Python &amp; Anaconda</a>
+  <ul class="collapse">
+  <li><a href="#navigating-the-file-tree-in-this-repository" id="toc-navigating-the-file-tree-in-this-repository" class="nav-link" data-scroll-target="#navigating-the-file-tree-in-this-repository">Navigating the File Tree in this Repository</a></li>
+  <li><a href="#installing-this-repositorys-depencies-using-conda-lock.yml-or-environment.yml-files" id="toc-installing-this-repositorys-depencies-using-conda-lock.yml-or-environment.yml-files" class="nav-link" data-scroll-target="#installing-this-repositorys-depencies-using-conda-lock.yml-or-environment.yml-files">Installing This Repository’s Depencies using <code>conda-lock.yml</code> or <code>environment.yml</code> Files</a></li>
+  <li><a href="#missing-an-imported-module" id="toc-missing-an-imported-module" class="nav-link" data-scroll-target="#missing-an-imported-module">Missing an Imported Module?</a></li>
+  <li><a href="#anacondas-free-with-account-creation-courses" id="toc-anacondas-free-with-account-creation-courses" class="nav-link" data-scroll-target="#anacondas-free-with-account-creation-courses">Anaconda’s Free [with Account Creation] Courses</a></li>
+  <li><a href="#anaconda-ecosystem" id="toc-anaconda-ecosystem" class="nav-link" data-scroll-target="#anaconda-ecosystem">Anaconda Ecosystem</a>
+  <ul class="collapse">
+  <li><a href="#anaconda-navigator-gui" id="toc-anaconda-navigator-gui" class="nav-link" data-scroll-target="#anaconda-navigator-gui">Anaconda Navigator (GUI)</a></li>
+  <li><a href="#conda-cli" id="toc-conda-cli" class="nav-link" data-scroll-target="#conda-cli">conda (CLI)</a></li>
+  </ul></li>
+  <li><a href="#python-3" id="toc-python-3" class="nav-link" data-scroll-target="#python-3">Python 3</a>
+  <ul class="collapse">
+  <li><a href="#official-documentation" id="toc-official-documentation" class="nav-link" data-scroll-target="#official-documentation">Official Documentation</a></li>
+  </ul></li>
+  <li><a href="#python-modules" id="toc-python-modules" class="nav-link" data-scroll-target="#python-modules">Python Modules</a>
+  <ul class="collapse">
+  <li><a href="#polars" id="toc-polars" class="nav-link" data-scroll-target="#polars"><code>polars</code></a></li>
+  <li><a href="#pandas" id="toc-pandas" class="nav-link" data-scroll-target="#pandas"><code>pandas</code></a></li>
+  <li><a href="#geopandas" id="toc-geopandas" class="nav-link" data-scroll-target="#geopandas"><code>geopandas</code></a></li>
+  <li><a href="#folium" id="toc-folium" class="nav-link" data-scroll-target="#folium"><code>folium</code></a></li>
+  <li><a href="#cartopy" id="toc-cartopy" class="nav-link" data-scroll-target="#cartopy"><code>cartopy</code></a></li>
+  <li><a href="#xarray" id="toc-xarray" class="nav-link" data-scroll-target="#xarray"><code>xarray</code></a></li>
+  <li><a href="#matplotlib" id="toc-matplotlib" class="nav-link" data-scroll-target="#matplotlib"><code>matplotlib</code></a></li>
+  <li><a href="#seaborn" id="toc-seaborn" class="nav-link" data-scroll-target="#seaborn"><code>seaborn</code></a></li>
+  <li><a href="#plotly.express" id="toc-plotly.express" class="nav-link" data-scroll-target="#plotly.express"><code>plotly.express</code></a></li>
+  </ul></li>
+  <li><a href="#recommended-books" id="toc-recommended-books" class="nav-link" data-scroll-target="#recommended-books">Recommended Books</a></li>
+  <li><a href="#youtube-resources-to-check-out" id="toc-youtube-resources-to-check-out" class="nav-link" data-scroll-target="#youtube-resources-to-check-out">Youtube Resources to Check Out</a></li>
+  <li><a href="#topics-on-the-table" id="toc-topics-on-the-table" class="nav-link" data-scroll-target="#topics-on-the-table">Topics on the Table</a></li>
+  <li><a href="#sidequests" id="toc-sidequests" class="nav-link" data-scroll-target="#sidequests">Sidequests</a></li>
+  <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing">Contributing</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="cary-introduction-to-python-anaconda" class="level1">
+<h1>Cary Introduction to Python &amp; Anaconda</h1>
+<p><a href="https://nbviewer.org/github/gregorywaynepower/cary-python-introduction/tree/main/"><img src="https://img.shields.io/badge/render-nbviewer-lightgrey?logo=jupyter.png" class="img-fluid" alt="Nbviewer"></a> <a href="https://colab.research.google.com/github/gregorywaynepower/cary-python-introduction/blob/main"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid" alt="Open In Colab"></a></p>
+<section id="navigating-the-file-tree-in-this-repository" class="level2">
+<h2 class="anchored" data-anchor-id="navigating-the-file-tree-in-this-repository">Navigating the File Tree in this Repository</h2>
+<ul>
+<li>For an Introduction to Data Analysis and a Refresher on Statistics
+<ul>
+<li><a href="./notebooks/introduction_to_data_analysis.html">introduction_to_data_analysis.ipynb</a></li>
+</ul></li>
+<li>For an Introduction to Hypothesis Testing
+<ul>
+<li><a href="./notebooks/hypothesis_testing.html">hypothesis_testing.ipynb</a></li>
+</ul></li>
+<li>For an Introduction to Python
+<ul>
+<li><a href="./notebooks/python_101.html">python_101.ipynb</a></li>
+</ul></li>
+<li>Handling Common Errors in Python
+<ul>
+<li><a href="./notebooks/python_errors.html">python_errors.ipynb</a></li>
+</ul></li>
+<li>Reading Local Files with <code>pandas</code> and visualizing datasets with <code>matplotlib</code>
+<ul>
+<li><a href="./notebooks/reading_local_files.html">reading_local_files.ipynb</a></li>
+</ul></li>
+<li>Making DataFrames from API requests
+<ul>
+<li><a href="./notebooks/making_dataframes_from_api_requests.html">making_dataframes_from_api_requests.ipynb</a></li>
+</ul></li>
+<li>What is wide vs long format data?
+<ul>
+<li><a href="./notebooks/wide_vs_long.html">wide_vs_long.ipynb</a></li>
+</ul></li>
+<li>Cleaning data in <code>pandas</code>
+<ul>
+<li><a href="./notebooks/cleaning_data.html">cleaning_data.ipynb</a></li>
+</ul></li>
+<li>Handling Data Issues in <code>pandas</code>
+<ul>
+<li><a href="./notebooks/handling_data_issues.html">handling_data_issues.ipynb</a></li>
+</ul></li>
+<li>Introduction to <a href="https://plotly.com/python/plotly-express/"><code>plotly.express</code></a>
+<ul>
+<li><a href="./notebooks/intro_to_plotly_express.html">intro_to_plotly_express.ipynb</a></li>
+</ul></li>
+<li>Introduction to <code>matplotlib</code>
+<ul>
+<li><a href="./notebooks/introducing_matplotlib.html">introducing_matplotlib.ipynb</a></li>
+</ul></li>
+<li>Plotting with <code>plot()</code> method for <code>pandas</code> objects
+<ul>
+<li><a href="./notebooks/plotting_with_pandas.html">plotting_with_pandas.ipynb</a></li>
+</ul></li>
+<li>Introduction to <code>pandas.plotting()</code> module
+<ul>
+<li><a href="./notebooks/pandas_plotting_module.html">pandas_plotting_module.ipynb</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="installing-this-repositorys-depencies-using-conda-lock.yml-or-environment.yml-files" class="level2">
+<h2 class="anchored" data-anchor-id="installing-this-repositorys-depencies-using-conda-lock.yml-or-environment.yml-files">Installing This Repository’s Depencies using <code>conda-lock.yml</code> or <code>environment.yml</code> Files</h2>
+<p>You can install project dependencies either using out-of-the-box conda CLI commands, or installing conda-lock to ensure dependencies are solved no matter the platform you are on.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge conda-lock</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda-lock</span> install <span class="at">--name</span> name-of-your-environment conda-lock.yml</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate name-of-your-environment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-n</span> name-of-your-environment <span class="at">--file</span> environment.yml</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate name-of-your-environment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="missing-an-imported-module" class="level2">
+<h2 class="anchored" data-anchor-id="missing-an-imported-module">Missing an Imported Module?</h2>
+<ol type="1">
+<li>Install your module using <code>conda install name-of-module</code> <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#id2">in your terminal or Anaconda Prompt</a></li>
+<li><a href="https://docs.anaconda.com/navigator/getting-started/#managing-packages">Install your module with Anaconda Navigator</a>
+<ol type="1">
+<li>Open Anaconda Navigator</li>
+<li>Click Environments tab</li>
+<li>Select the Environment you want to install a module into</li>
+</ol></li>
+</ol>
+<p>Please <strong>don’t use</strong>&nbsp;<code>python -m pip install name-of-module</code>&nbsp;when installing packages without activating your conda environment via <code>conda activate name-of-environment</code> first.</p>
+<p><a href="https://www.anaconda.com/blog/understanding-conda-and-pip" title="https://www.anaconda.com/blog/understanding-conda-and-pip">Anaconda’s Explanation of conda &amp; pip if you want a more in-depth explanation.</a></p>
+</section>
+<section id="anacondas-free-with-account-creation-courses" class="level2">
+<h2 class="anchored" data-anchor-id="anacondas-free-with-account-creation-courses">Anaconda’s Free [with Account Creation] Courses</h2>
+<ul>
+<li><a href="https://freelearning.anaconda.cloud/get-started-with-anaconda">Getting Started with Anaconda</a></li>
+<li><a href="https://freelearning.anaconda.cloud/conda-basics">conda Basics</a></li>
+<li><a href="https://freelearning.anaconda.cloud/jupyter-notebook-basics">Jupyter Notebook Basics</a></li>
+</ul>
+</section>
+<section id="anaconda-ecosystem" class="level2">
+<h2 class="anchored" data-anchor-id="anaconda-ecosystem">Anaconda Ecosystem</h2>
+<ul>
+<li><a href="https://docs.anaconda.com/">Anaconda Ecosystem Documentation</a></li>
+</ul>
+<section id="anaconda-navigator-gui" class="level3">
+<h3 class="anchored" data-anchor-id="anaconda-navigator-gui">Anaconda Navigator (GUI)</h3>
+<ul>
+<li><a href="https://docs.anaconda.com/navigator/getting-started/">Anaconda Navigator: Getting Started</a></li>
+<li><a href="https://docs.anaconda.com/navigator/">Anaconda Navigator Documentation</a></li>
+</ul>
+<section id="trying-to-explore-packages-not-installed" class="level4">
+<h4 class="anchored" data-anchor-id="trying-to-explore-packages-not-installed">Trying to Explore Packages Not Installed?</h4>
+<p>If your list of “Not Installed” packages is blank, I recommend <a href="https://docs.anaconda.com/navigator/update-navigator/#manual-update">manually updating</a> Anaconda Navigator.</p>
+</section>
+</section>
+<section id="conda-cli" class="level3">
+<h3 class="anchored" data-anchor-id="conda-cli">conda (CLI)</h3>
+<ul>
+<li><a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda: Getting Started</a></li>
+<li><a href="https://docs.conda.io/projects/conda/en/stable/">conda Documenation</a></li>
+<li><a href="https://docs.conda.io/projects/conda/en/latest/user-guide/cheatsheet.html">conda Cheat Sheet</a></li>
+</ul>
+<section id="need-to-rollback-to-a-previous-version-of-a-conda" class="level4">
+<h4 class="anchored" data-anchor-id="need-to-rollback-to-a-previous-version-of-a-conda">Need to Rollback to a Previous Version of a conda?</h4>
+<p>If you are experimenting with your <code>conda base</code> environment and need to restore a previous version of a conda.</p>
+<ol type="1">
+<li>You can use the <code>conda list</code> command with the <code>--revisions</code> flag to view your conda revision history.</li>
+<li>You can use the <code>conda install</code> command with the <code>--revision</code> flag with the number that corresponds to the version you want to rollback to.</li>
+</ol>
+<p><code>bash or Powershell conda list --revisions conda install --revision N # Replace N with the number that corresponds to the version you want to rollback to.</code></p>
+</section>
+<section id="trying-to-make-conda-faster" class="level4">
+<h4 class="anchored" data-anchor-id="trying-to-make-conda-faster">Trying to make conda Faster?</h4>
+<ul>
+<li><a href="https://www.anaconda.com/blog/conda-is-fast-now">Anaconda: Conda is Fast Now. Like, Really Fast</a></li>
+<li><a href="https://conda.github.io/conda-libmamba-solver/getting-started/">conda-libmamba-solver: Getting Started</a></li>
+<li><a href="https://mamba.readthedocs.io/en/latest/installation.html">Replace it with <code>mamba</code>; even for existing <code>conda</code> installations</a></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="python-3" class="level2">
+<h2 class="anchored" data-anchor-id="python-3">Python 3</h2>
+<section id="official-documentation" class="level3">
+<h3 class="anchored" data-anchor-id="official-documentation">Official Documentation</h3>
+<ol type="1">
+<li><a href="https://docs.python.org/3/tutorial/appetite.html">Python.org’s ‘Whetting Your Appetite’</a></li>
+<li><a href="https://docs.python.org/3/tutorial/" title="https://docs.python.org/3/tutorial/">Python.org’s Official Python 3 Tutorial</a></li>
+<li><a href="https://docs.python.org/3/glossary.html#glossary">Python.org’s Glossary of Terms</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0008/">Python.org’s Style Guide for Python Code</a></li>
+</ol>
+</section>
+</section>
+<section id="python-modules" class="level2">
+<h2 class="anchored" data-anchor-id="python-modules">Python Modules</h2>
+<section id="polars" class="level3">
+<h3 class="anchored" data-anchor-id="polars"><code>polars</code></h3>
+<p>For in-memory analysis of tabular data and introduces the DataFrame for larger-than-memory datasets and want an API similar to pandas.</p>
+<ul>
+<li><a href="https://pola-rs.github.io/polars-book/">Landing Page for <code>polars</code></a></li>
+</ul>
+</section>
+<section id="pandas" class="level3">
+<h3 class="anchored" data-anchor-id="pandas"><code>pandas</code></h3>
+<p>For in-memory analysis of tabular data and introduces the DataFrame</p>
+<ul>
+<li><a href="https://pandas.pydata.org/docs/getting_started/index.html">Landing page for <code>pandas</code></a></li>
+<li><a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_spreadsheets.html">pandas Compared to Spreadsheets</a></li>
+<li><a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html">pandas Compared to SQL Queries</a></li>
+<li><a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sas.html">pandas Compared to SAS</a></li>
+</ul>
+</section>
+<section id="geopandas" class="level3">
+<h3 class="anchored" data-anchor-id="geopandas"><code>geopandas</code></h3>
+<p>If you need your DataFrame to be mapped or do geospatial calculations.</p>
+<ul>
+<li><a href="https://geopandas.org/en/stable/">Landing page for <code>geopandas</code></a></li>
+<li><a href="https://geopandas.org/en/stable/docs/user_guide.html"><code>geopandas</code> User Guide</a></li>
+</ul>
+</section>
+<section id="folium" class="level3">
+<h3 class="anchored" data-anchor-id="folium"><code>folium</code></h3>
+<p>If you need more interactivity from your generated map.</p>
+<ul>
+<li><a href="https://github.com/python-visualization/folium">Landing page for <code>folium</code></a></li>
+</ul>
+</section>
+<section id="cartopy" class="level3">
+<h3 class="anchored" data-anchor-id="cartopy"><code>cartopy</code></h3>
+<p>If you need more control over your generated static map projection.</p>
+<ul>
+<li><a href="https://scitools.org.uk/cartopy/docs/latest/">Landing page for <code>cartopy</code></a></li>
+</ul>
+</section>
+<section id="xarray" class="level3">
+<h3 class="anchored" data-anchor-id="xarray"><code>xarray</code></h3>
+<p>If you need your dataset to have more than two dimensions.</p>
+<ul>
+<li><a href="https://docs.xarray.dev/en/stable/">Landing Page for <code>xarray</code></a></li>
+</ul>
+</section>
+<section id="matplotlib" class="level3">
+<h3 class="anchored" data-anchor-id="matplotlib"><code>matplotlib</code></h3>
+<p>Highly configurable visualization library that other libraries build off of.</p>
+<ul>
+<li><a href="https://matplotlib.org/">Landing page for <code>matplotlib</code></a></li>
+</ul>
+</section>
+<section id="seaborn" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn"><code>seaborn</code></h3>
+<p>High-level library for generating statistical graphics, especially for long data format.</p>
+<ul>
+<li><a href="https://seaborn.pydata.org/">Landing page for <code>seaborn</code></a></li>
+</ul>
+</section>
+<section id="plotly.express" class="level3">
+<h3 class="anchored" data-anchor-id="plotly.express"><code>plotly.express</code></h3>
+<p>Generate interactive graphics, with a focus on exploratory analysis with visuals.</p>
+<ul>
+<li><a href="https://plotly.com/python/plotly-express/">Landing page for <code>plotly.express</code></a></li>
+</ul>
+</section>
+</section>
+<section id="recommended-books" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-books">Recommended Books</h2>
+<p>I highly recommend going through the official Python 3 tutorial first. It’s a great way to get your feet wet and get a feel for the language. However, here are some books I recommend if you want to go deeper or explore certain topics.</p>
+<ol type="1">
+<li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python by Al Sweigart</a></li>
+<li><a href="https://github.com/stefmolin/Hands-On-Data-Analysis-with-Pandas-2nd-edition">Data Analysis with Pandas: 2nd Edition by Stefanie Molin</a></li>
+<li><a href="https://jeroenjanssens.com/dsatcl/">Data Science at the Command Line: 2nd Edition by Jeoroen Janssens</a></li>
+</ol>
+</section>
+<section id="youtube-resources-to-check-out" class="level2">
+<h2 class="anchored" data-anchor-id="youtube-resources-to-check-out">Youtube Resources to Check Out</h2>
+<ol type="1">
+<li><a href="https://www.youtube.com/@robmulla" title="https://www.youtube.com/@robmulla">Rob Mulla on YouTube for Data Science with Focus on Python</a>
+<ol type="1">
+<li><a href="https://www.youtube.com/playlist?list=PL7RwtdVQXQ8qxBH6ugYn50D0M5u--2Xx4" title="https://www.youtube.com/playlist?list=pl7rwtdvqxq8qxbh6ugyn50d0m5u--2xx4">Playlist: Medallion Python&nbsp;Data Science Coding Videos</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL7RwtdVQXQ8oYpuIIDWR0SaaSCe8ZeZ7t" title="https://www.youtube.com/playlist?list=pl7rwtdvqxq8oypuiidwr0saasce8zez7t">Playlist: Working with Data in Python</a></li>
+</ol></li>
+<li><a href="https://www.youtube.com/watch?v=cKPlPJyQrt4">Conference Talk: So you want to be a Python expert?</a></li>
+<li><a href="https://www.youtube.com/watch?v=nxWginnBklU" title="https://www.youtube.com/watch?v=nxWginnBklU">Conference Talk: 1000x faster data manipulation: vectorizing with <code>pandas</code> and <code>numpy</code></a></li>
+<li><a href="https://www.youtube.com/watch?v=HN5d490_KKk">Conference Talk: No More Sad Pandas: Optimizing Pandas Code for Sped and Efficiency</a></li>
+<li><a href="https://www.youtube.com/watch?v=zgbUk90aQ6A">Conference Talk: Effective Pandas</a></li>
+<li><a href="https://www.youtube.com/watch?v=pjq3QOxl9Ok">Conference Tutorial: So You Wanna Be a Pandas Expert?</a></li>
+</ol>
+</section>
+<section id="topics-on-the-table" class="level2">
+<h2 class="anchored" data-anchor-id="topics-on-the-table">Topics on the Table</h2>
+<ul>
+<li>Installing <a href="https://www.anaconda.com/">Anaconda’s</a> Package &amp; Environment Manager <a href="https://docs.conda.io/projects/conda/en/stable/"><code>conda</code></a> (Command Line Interface Tool) and <a href="https://docs.anaconda.com/navigator/index.html">Anaconda-Navigator</a> (Graphical User Interface Tool) (Best practice when it comes to dependency management for Python and R)</li>
+<li>Picking an editor of your choice that supports JupyterNotebooks (<a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://jupyter.org/">JupyterLab</a>)</li>
+<li>How do I get data into Python and get descriptive statistics? (reading files with <a href="https://pandas.pydata.org/docs/getting_started/index.html#getting-started">pandas</a>)</li>
+<li>Now paint me a picture with the data. (introduction to <a href="https://plotly.com/python/">Plotly</a> &amp; <a href="https://holoviz.org/index.html">Holoviz Ecosystem</a>)</li>
+<li>How do I share this?
+<ul>
+<li><a href="https://mybinder.org/">Binder</a> if you want interactivity (a little more setup)</li>
+<li><a href="https://nbviewer.org/">nbviewer</a> if you value sharing your rendered files (less setup but not as pretty)</li>
+</ul></li>
+</ul>
+</section>
+<section id="sidequests" class="level2">
+<h2 class="anchored" data-anchor-id="sidequests">Sidequests</h2>
+<ul>
+<li>How to work with the Terminal
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/powershell/scripting/overview">Using Powershell</a></li>
+</ul></li>
+<li>Basics of version control using Git &amp; pushing to Github
+<ul>
+<li><a href="https://git-scm.com/doc">Official Git Documentation &amp; Cheatsheets</a></li>
+<li><a href="https://www.youtube.com/watch?v=HVsySz-h9r4&amp;list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx&amp;index=1">Git &amp; Github Crash Course for Beginners</a></li>
+<li><a href="https://www.reviewnb.com">Want Richer Change History for Notebooks? Try ReviewNB</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="contributing" class="level2">
+<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
+<p>If you have anything you want to cover, I’m open to suggestions. Feel free to checkout the <a href="./CONTRIBUTING.html">contributing guidelines</a> for ways to offer feedback and contribute. My previous experience with python covers web scraping, cleaning data, statistical analysis, and moving data into and out of databases.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
