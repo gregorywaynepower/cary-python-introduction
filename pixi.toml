@@ -1,0 +1,32 @@
+[project]
+name = "cary_dev"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Gregory Power <31050507+gregorywaynepower@users.noreply.github.com>"]
+channels = ["conda-forge", "main", "r", "msys2"]
+platforms = ["linux-64", "win-64", "osx-64", "osx-arm64"]
+
+[tasks]
+
+[dependencies]
+
+[target.linux-64.dependencies]
+python = "*"
+plotly = "*"
+ca-certificates = "*"
+openssl = "*"
+jupyterlab = "*"
+pandas = "*"
+certifi = "*"
+requests = "*"
+matplotlib = "*"
+seaborn = "*"
+numpy = "*"
+openpyxl = "*"
+polars = "*"
+scikit-learn = "*"
+ipympl = "*"
+nodejs = "*"
+statsmodels = "*"
+setuptools = "*"
+ruff = "*"
