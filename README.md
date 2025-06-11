@@ -46,6 +46,12 @@ conda env create -n name-of-your-environment --file environment.yml
 conda activate name-of-your-environment
 ```
 
+```bash
+cd 'where-you-cloned-the-git-repository'
+pixi shell # activates your virtual environment like 'conda activate'
+# type 'exit' if you need to deactivate your environment
+```
+
 ## Missing an Imported Module?
 
 1. Install your module using `conda install name-of-module` [in your terminal or Anaconda Prompt](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#id2)
